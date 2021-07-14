@@ -215,3 +215,16 @@ func Log_GetContentV2(file_object filestorageHandler.File, logfileName string) [
 	return data
 
 }
+
+
+//Create local storage derectories
+
+func Log_CreateDirectory(fileId string){
+
+	path := "localstorage/" + fileId
+	err := os.MkdirAll(path,0755);
+
+	if err != nil{
+		log.Fatal(err)
+	}
+}

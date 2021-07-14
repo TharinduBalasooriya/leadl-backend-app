@@ -6,6 +6,8 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/models"
+
 	//"log"
 
 	//"io/ioutil"
@@ -87,9 +89,7 @@ func HandleLogFileUpload(w http.ResponseWriter, r *http.Request) {
 
 	
 	w.Header().Set("Content-Type", "application/json")
-	//token := r.Header.Get("Token")
-	//fmt.Println(token)
-	//params := mux.Vars(r)
+
 
 	fmt.Println("File Upload Endpoint Hit")
 
@@ -103,14 +103,7 @@ func HandleLogFileUpload(w http.ResponseWriter, r *http.Request) {
 	fileName:=r.FormValue("fileName")
 	fileId:=r.FormValue("fileId")
 
-	// fmt.Println(userName)
-	// fmt.Println(projectName)
-	// fmt.Println(fileName)
 
-	// fmt.Println("===PARAMS=====")
-	// fmt.Println(params["user"])
-	// fmt.Println(params["project"])
-	// fmt.Println(params["log"])
 
 	if err != nil {
 		fmt.Println("Error Retrieving the File")
@@ -130,6 +123,8 @@ func HandleLogFileUpload(w http.ResponseWriter, r *http.Request) {
 	//controller.LogUploadFiles(fullFilePath, file)
 	controller.LogUploadFiles(fullFilePath,file)
 	controller.LogSaveDetails(userName,projectName,fileName,fileId)
+	models.Log_CreateDirectory(fileId);
+
 
 }
 
@@ -151,3 +146,5 @@ func HandleFileUpdates(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(newupdate)
 
 }
+
+
