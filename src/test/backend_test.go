@@ -8,6 +8,10 @@ import (
 
 
 
-func TestSum(t *testing.T) {
-    models.CreateDirectory("12212");
+func Test(t *testing.T) {
+    models.Log_CreateDirectory("12212");
+}
+
+func TestFileTemplateCopy(t *testing.T){
+
 }

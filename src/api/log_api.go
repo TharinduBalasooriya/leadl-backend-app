@@ -6,7 +6,7 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/models"
+	
 
 	//"log"
 
@@ -123,7 +123,8 @@ func HandleLogFileUpload(w http.ResponseWriter, r *http.Request) {
 	//controller.LogUploadFiles(fullFilePath, file)
 	controller.LogUploadFiles(fullFilePath,file)
 	controller.LogSaveDetails(userName,projectName,fileName,fileId)
-	models.Log_CreateDirectory(fileId);
+	controller.Config_LDEL_DEF(fileName,fileId)
+	
 
 
 }
