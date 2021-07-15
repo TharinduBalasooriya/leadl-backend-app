@@ -115,6 +115,26 @@ const (
 	S3_BUCKET = "leadl"
 )
 
+
+
+func ExecuteLDEL(fileId string){
+
+	logFileDetails := logrepo.GetLogFileDetails(fileId);
+	Config_LDEL_DEF(logFileDetails.LogFileName,logFileDetails.FileId);
+	models.Log_EXECUTE_LDEL(fileId);
+
+}
+
+func Config_LDEL_DEF(logFileName string,fileID string){
+
+	models.Log_CreateDirectory(fileID);
+	models.Log_GetDefFileTempalte(fileID);
+	models.Log_Append_LDEL_ScriptLocation(fileID);
+	models.Log_Append_LDEL_LogFileLocation(fileID,logFileName);
+	models.Log_Append_LDEL_ResultLocation(fileID);
+
+}
+
 func LogGetFileContentv2(fileId string) (interface{}){
 
 	
@@ -206,15 +226,7 @@ func LogSaveDetails(userName string, projectName string,logFileName string,fileI
 }
 
 
-func Config_LDEL_DEF(logFileName string,fileID string){
 
-	models.Log_CreateDirectory(fileID);
-	models.Log_GetDefFileTempalte(fileID);
-	models.Log_Append_LDEL_ScriptLocation(fileID);
-	models.Log_Append_LDEL_LogFileLocation(fileID,logFileName);
-	models.Log_Append_LDEL_ResultLocation(fileID);
-
-}
 func LogUploadFiles(path string, inputfile multipart.File) {
 
 	// byte array

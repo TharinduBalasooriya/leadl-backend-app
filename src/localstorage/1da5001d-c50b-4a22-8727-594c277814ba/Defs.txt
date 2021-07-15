@@ -109,8 +109,6 @@ DEF	LDEL_SEQUENCE_VAR_START_INDICATOR		_
 DEF	LDEL_SEQUENCE_VAR_SUFFIX			SEQUENCE
 
 
-DEF	LDEL_SCRIPT_FILE				../src/localstorage/1da5001d-c50b-4a22-8727-594c277814ba/script.txt
-DEF	LDEL_LOG_FILE					../src/localstorage/1da5001d-c50b-4a22-8727-594c277814ba/log.txt
-
-
-DEF LDEL_RESULT_FILE                ../src/localstorage/1da5001d-c50b-4a22-8727-594c277814ba/result.txt
+DEF	LDEL_SCRIPT_FILE			../src/localstorage/1da5001d-c50b-4a22-8727-594c277814ba/script.txt
+DEF	LDEL_LOG_FILE				../src/localstorage/1da5001d-c50b-4a22-8727-594c277814ba/log1.txt
+DEF	LDEL_RESULT_FILE			../src/localstorage/1da5001d-c50b-4a22-8727-594c277814ba/result.txt
