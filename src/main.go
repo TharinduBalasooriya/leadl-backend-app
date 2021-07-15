@@ -3,18 +3,14 @@ package main
 import (
 	"log"
 	"net/http"
-	
 
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/routes"
+	"github.com/gorilla/handlers"
 	"github.com/joho/godotenv"
-	"github.com/gorilla/handlers"
-
-	"github.com/gorilla/handlers"
-	
 )
 
 // LoadEnv /*
-func LoadEnv(){
+func LoadEnv() {
 
 	err := godotenv.Load(".env")
 
@@ -22,9 +18,7 @@ func LoadEnv(){
 		log.Fatal("Error loading .env file")
 	}
 
-	
 }
-
 
 /*
  Entry point
@@ -40,13 +34,7 @@ func main() {
 	//log.Println("Server Started localhost :3000")
 	log.Fatal(http.ListenAndServe(":3000", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"http://localhost:4200"}))(router)))
 
-	
-	
-
-	
-
 	// log.Println("Listening...")
-	 //log.Fatal(http.ListenAndServe(":3000", nil))
-
+	//log.Fatal(http.ListenAndServe(":3000", nil))
 
 }

@@ -53,9 +53,14 @@ func LogRoutes() *mux.Router {
 	router.HandleFunc("/api/logs/getByProject/{user}/{project}",api.GetLogListByUsernProject).Methods("GET")
 	router.HandleFunc("/ws",websocket.WSPage).Methods("GET")
 
+	//Invoke Interpreter
+
+	router.HandleFunc("/api/executeLDEL/{fileId}",api.HandleInvokeELInterpreter).Methods("GET");
 
 
 	//router.Use(middleware.LoggingMiddleware)
+
+
 
 
 	return router

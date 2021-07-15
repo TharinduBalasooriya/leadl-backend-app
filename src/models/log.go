@@ -13,6 +13,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	fclLib "github.com/TharinduBalasooriya/LogAnalyzerBackend/LogAnalyzer"
 )
 
 /*
@@ -271,6 +272,15 @@ func Log_GetDefFileTempalte(fileId string){
 
 }
 
+func Log_EXECUTE_LDEL(fileId string){
+
+	defFilePath := "localstorage/"  + fileId + "/Defs.txt";
+
+	fclLib.NewELInterpretterWrapper().RunELInterpretter(defFilePath);
+
+
+}
+
 func Log_Append_LDEL_ScriptLocation(fileId string){
 
 	defFileLocation := "localstorage/"+fileId+"/Defs.txt"
@@ -321,7 +331,7 @@ func Log_Append_LDEL_ResultLocation(fileId string){
 
 
 	defFileLocation := "localstorage/"+fileId+"/Defs.txt"
-	newDef:= "DEF	LDEL_SCRIPT_FILE			../src/localstorage/" + fileId + "/result.txt\n"
+	newDef:= "DEF	LDEL_RESULT_FILE			../src/localstorage/" + fileId + "/result.txt\n"
 
 
 	defFile,err := os.OpenFile(defFileLocation,

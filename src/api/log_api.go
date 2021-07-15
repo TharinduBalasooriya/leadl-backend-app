@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/models"
 
 	//"log"
 
@@ -25,8 +24,6 @@ import (
 */
 func GetLogFileContent(w http.ResponseWriter, r *http.Request) {
 
-
-	
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	logs := controller.LogGetFileContent(params["user"], params["project"], params["logfileName"])
@@ -34,11 +31,8 @@ func GetLogFileContent(w http.ResponseWriter, r *http.Request) {
 
 }
 
-
 func GetLogFileContentv2(w http.ResponseWriter, r *http.Request) {
 
-
-	
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	//logs := controller.LogGetFileContent(params["user"], params["project"], params["logfileName"])
@@ -47,14 +41,8 @@ func GetLogFileContentv2(w http.ResponseWriter, r *http.Request) {
 
 }
 
-
-
-
-
 func GetAllLog(w http.ResponseWriter, r *http.Request) {
 
-	
-	
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	logs := controller.GetFileList(params["user"])
@@ -62,7 +50,7 @@ func GetAllLog(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func GetAllProjects(w http.ResponseWriter, r *http.Request){
+func GetAllProjects(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
@@ -71,26 +59,22 @@ func GetAllProjects(w http.ResponseWriter, r *http.Request){
 
 }
 
-
 //
 
-func GetLogListByUsernProject(w http.ResponseWriter, r *http.Request){
+func GetLogListByUsernProject(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("GotHere")
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	//logs := controller.GetProjects(params["user"])
-	logs:= controller.GetLogListByUsernProject(params["user"],params["project"])
+	logs := controller.GetLogListByUsernProject(params["user"], params["project"])
 	json.NewEncoder(w).Encode(logs)
 
 }
 
-
 func HandleLogFileUpload(w http.ResponseWriter, r *http.Request) {
 
-	
 	w.Header().Set("Content-Type", "application/json")
-
 
 	fmt.Println("File Upload Endpoint Hit")
 
@@ -99,39 +83,31 @@ func HandleLogFileUpload(w http.ResponseWriter, r *http.Request) {
 	// it also returns the FileHeader so we can get the Filename,
 	// the Header and the size of the file
 	file, handler, err := r.FormFile("logFile")
-	userName:=r.FormValue("userName")
-	projectName:=r.FormValue("projectName")
-	fileName:=r.FormValue("fileName")
-	fileId:=r.FormValue("fileId")
-
-
+	userName := r.FormValue("userName")
+	projectName := r.FormValue("projectName")
+	fileName := r.FormValue("fileName")
+	fileId := r.FormValue("fileId")
 
 	if err != nil {
 		fmt.Println("Error Retrieving the File")
 		fmt.Println(err)
 		return
 	}
-	
+
 	defer file.Close()
 	fmt.Printf("Uploaded File: %+v\n", handler.Filename)
 	fmt.Printf("File Size: %+v\n", handler.Size)
 	fmt.Printf("MIME Header: %+v\n", handler.Header)
 
-
 	//aws upload path
 	fullFilePath := "logs/" + userName + "/" + projectName + "/" + fileName
 
 	//controller.LogUploadFiles(fullFilePath, file)
-	controller.LogUploadFiles(fullFilePath,file)
-	controller.LogSaveDetails(userName,projectName,fileName,fileId)
-	controller.Config_LDEL_DEF(fileName,fileId)
-	
-
+	controller.LogUploadFiles(fullFilePath, file)
+	controller.LogSaveDetails(userName, projectName, fileName, fileId)
+	controller.Config_LDEL_DEF(fileName, fileId)
 
 }
-
-
-
 
 type Update struct {
 	UserName    string `json:"userName"`
@@ -149,34 +125,47 @@ func HandleFileUpdates(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func HandleSrciptUpload(w http.ResponseWriter, r *http.Request){
+func HandleSrciptUpload(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("File Upload Endpoint Hit")
-    r.ParseMultipartForm(10 << 20)
-   
-    file, handler, err := r.FormFile("myFile")
-	fileId:=r.FormValue("fileId")
-    if err != nil {
-        fmt.Println("Error Retrieving the File")
-        fmt.Println(err)
-        return
-    }
-    defer file.Close()
-    fmt.Printf("Uploaded File: %+v\n", handler.Filename)
-    fmt.Printf("File Size: %+v\n", handler.Size)
-    fmt.Printf("MIME Header: %+v\n", handler.Header)
+	r.ParseMultipartForm(10 << 20)
 
-    // byte array
-    fileBytes, err := ioutil.ReadAll(file)
-    if err != nil {
-        fmt.Println(err)
-    }
+	file, handler, err := r.FormFile("myFile")
+	fileId := r.FormValue("fileId")
+	if err != nil {
+		fmt.Println("Error Retrieving the File")
+		fmt.Println(err)
+		return
+	}
+	defer file.Close()
+	fmt.Printf("Uploaded File: %+v\n", handler.Filename)
+	fmt.Printf("File Size: %+v\n", handler.Size)
+	fmt.Printf("MIME Header: %+v\n", handler.Header)
 
-	 err = ioutil.WriteFile("localstorage/"+fileId+"/script.txt",  fileBytes, 0777)
-	 if err != nil {	
-		 fmt.Println(err)
-	 }
-   fmt.Fprintf(w, "Successfully Uploaded File\n")
+	// byte array
+	fileBytes, err := ioutil.ReadAll(file)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = ioutil.WriteFile("localstorage/"+fileId+"/script.txt", fileBytes, 0777)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Fprintf(w, "Successfully Uploaded File\n")
 
 }
 
+func HandleInvokeELInterpreter(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Content-Type", "application/json")
+	params := mux.Vars(r)
+
+	controller.ExecuteLDEL(params["fileId"]);
+	
+
+	
+
+	fmt.Fprintf(w, "Invoke Enpoint Called" + params["fileId"])
+
+}

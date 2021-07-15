@@ -1,4 +1,4 @@
-Time spent parsing = 2 ms
+Time spent parsing = 0 ms
 Time spent interpreting = 1 ms
 
 LINE	:	NONEMPTY_LINE
