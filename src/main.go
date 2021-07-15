@@ -7,8 +7,10 @@ import (
 
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/routes"
 	"github.com/joho/godotenv"
-
 	"github.com/gorilla/handlers"
+
+
+	
 )
 
 // LoadEnv /*
@@ -28,7 +30,6 @@ func LoadEnv(){
  Entry point
 */
 func main() {
-
 
 
 

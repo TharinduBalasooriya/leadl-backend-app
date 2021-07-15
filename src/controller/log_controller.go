@@ -209,6 +209,7 @@ func LogSaveDetails(userName string, projectName string,logFileName string,fileI
 func Config_LDEL_DEF(logFileName string,fileID string){
 
 	models.Log_CreateDirectory(fileID);
+	models.Log_GetDefFileTempalte(fileID);
 	models.Log_Append_LDEL_ScriptLocation(fileID);
 	models.Log_Append_LDEL_LogFileLocation(fileID,logFileName);
 	models.Log_Append_LDEL_ResultLocation(fileID);
