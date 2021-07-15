@@ -9,7 +9,7 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/gorilla/handlers"
 
-
+	"github.com/gorilla/handlers"
 	
 )
 
@@ -30,8 +30,6 @@ func LoadEnv(){
  Entry point
 */
 func main() {
-
-
 
 	//Starting the API server
 	router := routes.LogRoutes()

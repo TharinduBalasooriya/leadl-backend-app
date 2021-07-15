@@ -6,7 +6,8 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	
+	"io/ioutil"
+	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/models"
 
 	//"log"
 
@@ -148,4 +149,34 @@ func HandleFileUpdates(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func HandleSrciptUpload(w http.ResponseWriter, r *http.Request){
+
+	fmt.Println("File Upload Endpoint Hit")
+    r.ParseMultipartForm(10 << 20)
+   
+    file, handler, err := r.FormFile("myFile")
+	fileId:=r.FormValue("fileId")
+    if err != nil {
+        fmt.Println("Error Retrieving the File")
+        fmt.Println(err)
+        return
+    }
+    defer file.Close()
+    fmt.Printf("Uploaded File: %+v\n", handler.Filename)
+    fmt.Printf("File Size: %+v\n", handler.Size)
+    fmt.Printf("MIME Header: %+v\n", handler.Header)
+
+    // byte array
+    fileBytes, err := ioutil.ReadAll(file)
+    if err != nil {
+        fmt.Println(err)
+    }
+
+	 err = ioutil.WriteFile("localstorage/"+fileId+"/script.txt",  fileBytes, 0777)
+	 if err != nil {	
+		 fmt.Println(err)
+	 }
+   fmt.Fprintf(w, "Successfully Uploaded File\n")
+
+}
 

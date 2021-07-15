@@ -3,9 +3,9 @@ package routes
 import (
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/api"
 	"github.com/gorilla/mux"
+
 	//"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/middleware"
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/websocket"
-
 )
 
 func LogRoutes() *mux.Router {
@@ -30,6 +30,9 @@ func LogRoutes() *mux.Router {
 	//upload file
 	//router.HandleFunc("/api/uploads/{user}/{project}/{log}", api.HandleLogFileUpload).Methods("POST")
 	router.HandleFunc("/api/uploads/", api.HandleLogFileUpload).Methods("POST")
+
+	//
+	router.HandleFunc("/api/uploadSripts/", api.HandleSrciptUpload).Methods("POST")
 
 	//read the log file content
 	//router.HandleFunc("/api/{user}/{project}/{logfileName}", api.GetLogFileContent).Methods("GET")
