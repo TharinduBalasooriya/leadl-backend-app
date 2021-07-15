@@ -1,0 +1,854 @@
+Time spent parsing = 2 ms
+Time spent interpreting = 1 ms
+
+LINE	:	NONEMPTY_LINE
+{
+	Value = "Test Suite '/Users/Shared/Jenkins/Home/jobs/PagePlanner/workspace/Build/Products/Debug/PagePlannerTests.octest(Tests)' started at 2013-07-07 22:01:41 +0000"
+
+	VARIABLE SEQUENCE	:	NONEMPTY_LINE
+	{
+		Value = "Test"
+	
+		VARIABLE	:	Anonymous
+		{
+			Value = "Test"
+		}
+	}
+}
+BLOCK	:	TEST_SUITE_EXECUTION
+{
+	Value = ""
+
+	LINE	:	TEST_SUITE_START
+	{
+		Value = "Test Suite 'ApiNotificationManagerTests' started at 2013-07-07 22:01:41 +0000"
+	
+		VARIABLE SEQUENCE	:	TEST_SUITE_START
+		{
+			Value = "Test Suite 'ApiNotificationManagerTests' started at 2013-07-07 22:01:41 +0000"
+		
+			VARIABLE	:	CONSTANT STRING
+			{
+				Value = "Test Suite '"
+			}
+			VARIABLE	:	TEST_SUITE
+			{
+				Value = "ApiNotificationManagerTests"
+			}
+			VARIABLE	:	CONSTANT STRING
+			{
+				Value = "' started at "
+			}
+			VARIABLE SEQUENCE	:	TIMESTAMP
+			{
+				Value = "2013-07-07 22:01:41 +0000"
+			
+				VARIABLE	:	YEAR
+				{
+					Value = "2013"
+				}
+				VARIABLE	:	CONSTANT STRING
+				{
+					Value = "-"
+				}
+				VARIABLE	:	MONTH
+				{
+					Value = "07"
+				}
+				VARIABLE	:	CONSTANT STRING
+				{
+					Value = "-"
+				}
+				VARIABLE	:	DATE
+				{
+					Value = "07"
+				}
+				VARIABLE	:	CONSTANT STRING
+				{
+					Value = " "
+				}
+				VARIABLE	:	HOUR
+				{
+					Value = "22"
+				}
+				VARIABLE	:	CONSTANT STRING
+				{
+					Value = ":"
+				}
+				VARIABLE	:	MINUTE
+				{
+					Value = "01"
+				}
+				VARIABLE	:	CONSTANT STRING
+				{
+					Value = ":"
+				}
+				VARIABLE	:	SECONDS
+				{
+					Value = "41"
+				}
+				VARIABLE	:	CONSTANT STRING
+				{
+					Value = " +"
+				}
+				VARIABLE	:	Anonymous
+				{
+					Value = "0000"
+				}
+			}
+		}
+	}
+	BLOCK	:	TEST_EXECUTION
+	{
+		Value = ""
+	
+		BLOCK	:	TEST_EXECUTION_SUCCESS
+		{
+			Value = ""
+		
+			LINE	:	TEST_START
+			{
+				Value = "Test Case '-[ApiNotificationManagerTests testThatClassExists]' started."
+			
+				VARIABLE SEQUENCE	:	TEST_START
+				{
+					Value = "Test Case '-[ApiNotificationManagerTests testThatClassExists]' started."
+				
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "Test Case '-["
+					}
+					VARIABLE	:	TEST_SUITE
+					{
+						Value = "ApiNotificationManagerTests"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " "
+					}
+					VARIABLE	:	TEST
+					{
+						Value = "testThatClassExists"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "]' started."
+					}
+				}
+			}
+			LINE	:	TEST_PASSED
+			{
+				Value = "Test Case '-[ApiNotificationManagerTests testThatClassExists]' passed (0.000 seconds)."
+			
+				VARIABLE SEQUENCE	:	TEST_PASSED
+				{
+					Value = "Test Case '-[ApiNotificationManagerTests testThatClassExists]' passed (0.000 seconds)."
+				
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "Test Case '-["
+					}
+					VARIABLE	:	TEST_SUITE
+					{
+						Value = "ApiNotificationManagerTests"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " "
+					}
+					VARIABLE	:	TEST
+					{
+						Value = "testThatClassExists"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "]' passed ("
+					}
+					VARIABLE	:	TIME_INTERVAL
+					{
+						Value = ""
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " seconds)."
+					}
+				}
+			}
+		}
+	}
+	BLOCK	:	TEST_EXECUTION
+	{
+		Value = ""
+	
+		BLOCK	:	TEST_EXECUTION_SUCCESS
+		{
+			Value = ""
+		
+			LINE	:	TEST_START
+			{
+				Value = "Test Case '-[ApiNotificationManagerTests testapiIdentifiers__propertyExists]' started."
+			
+				VARIABLE SEQUENCE	:	TEST_START
+				{
+					Value = "Test Case '-[ApiNotificationManagerTests testapiIdentifiers__propertyExists]' started."
+				
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "Test Case '-["
+					}
+					VARIABLE	:	TEST_SUITE
+					{
+						Value = "ApiNotificationManagerTests"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " "
+					}
+					VARIABLE	:	TEST
+					{
+						Value = "testapiIdentifiers__propertyExists"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "]' started."
+					}
+				}
+			}
+			LINE	:	TEST_PASSED
+			{
+				Value = "Test Case '-[ApiNotificationManagerTests testapiIdentifiers__propertyExists]' passed (0.000 seconds)."
+			
+				VARIABLE SEQUENCE	:	TEST_PASSED
+				{
+					Value = "Test Case '-[ApiNotificationManagerTests testapiIdentifiers__propertyExists]' passed (0.000 seconds)."
+				
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "Test Case '-["
+					}
+					VARIABLE	:	TEST_SUITE
+					{
+						Value = "ApiNotificationManagerTests"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " "
+					}
+					VARIABLE	:	TEST
+					{
+						Value = "testapiIdentifiers__propertyExists"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "]' passed ("
+					}
+					VARIABLE	:	TIME_INTERVAL
+					{
+						Value = ""
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " seconds)."
+					}
+				}
+			}
+		}
+	}
+	BLOCK	:	TEST_EXECUTION
+	{
+		Value = ""
+	
+		BLOCK	:	TEST_EXECUTION_SUCCESS
+		{
+			Value = ""
+		
+			LINE	:	TEST_START
+			{
+				Value = "Test Case '-[ApiNotificationManagerTests testapiIdentifiers_whenObjectCreatedThroughDI_propertyInjectedProperly]' started."
+			
+				VARIABLE SEQUENCE	:	TEST_START
+				{
+					Value = "Test Case '-[ApiNotificationManagerTests testapiIdentifiers_whenObjectCreatedThroughDI_propertyInjectedProperly]' started."
+				
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "Test Case '-["
+					}
+					VARIABLE	:	TEST_SUITE
+					{
+						Value = "ApiNotificationManagerTests"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " "
+					}
+					VARIABLE	:	TEST
+					{
+						Value = "testapiIdentifiers_whenObjectCreatedThroughDI_propertyInjectedProperly"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "]' started."
+					}
+				}
+			}
+			LINE	:	TEST_PASSED
+			{
+				Value = "Test Case '-[ApiNotificationManagerTests testapiIdentifiers_whenObjectCreatedThroughDI_propertyInjectedProperly]' passed (0.000 seconds)."
+			
+				VARIABLE SEQUENCE	:	TEST_PASSED
+				{
+					Value = "Test Case '-[ApiNotificationManagerTests testapiIdentifiers_whenObjectCreatedThroughDI_propertyInjectedProperly]' passed (0.000 seconds)."
+				
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "Test Case '-["
+					}
+					VARIABLE	:	TEST_SUITE
+					{
+						Value = "ApiNotificationManagerTests"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " "
+					}
+					VARIABLE	:	TEST
+					{
+						Value = "testapiIdentifiers_whenObjectCreatedThroughDI_propertyInjectedProperly"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "]' passed ("
+					}
+					VARIABLE	:	TIME_INTERVAL
+					{
+						Value = ""
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " seconds)."
+					}
+				}
+			}
+		}
+	}
+	BLOCK	:	TEST_EXECUTION
+	{
+		Value = ""
+	
+		BLOCK	:	TEST_EXECUTION_SUCCESS
+		{
+			Value = ""
+		
+			LINE	:	TEST_START
+			{
+				Value = "Test Case '-[ApiNotificationManagerTests testhandleApiNoifications__methodExists]' started."
+			
+				VARIABLE SEQUENCE	:	TEST_START
+				{
+					Value = "Test Case '-[ApiNotificationManagerTests testhandleApiNoifications__methodExists]' started."
+				
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "Test Case '-["
+					}
+					VARIABLE	:	TEST_SUITE
+					{
+						Value = "ApiNotificationManagerTests"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " "
+					}
+					VARIABLE	:	TEST
+					{
+						Value = "testhandleApiNoifications__methodExists"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "]' started."
+					}
+				}
+			}
+			LINE	:	TEST_PASSED
+			{
+				Value = "Test Case '-[ApiNotificationManagerTests testhandleApiNoifications__methodExists]' passed (0.000 seconds)."
+			
+				VARIABLE SEQUENCE	:	TEST_PASSED
+				{
+					Value = "Test Case '-[ApiNotificationManagerTests testhandleApiNoifications__methodExists]' passed (0.000 seconds)."
+				
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "Test Case '-["
+					}
+					VARIABLE	:	TEST_SUITE
+					{
+						Value = "ApiNotificationManagerTests"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " "
+					}
+					VARIABLE	:	TEST
+					{
+						Value = "testhandleApiNoifications__methodExists"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "]' passed ("
+					}
+					VARIABLE	:	TIME_INTERVAL
+					{
+						Value = ""
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " seconds)."
+					}
+				}
+			}
+		}
+	}
+	BLOCK	:	TEST_EXECUTION
+	{
+		Value = ""
+	
+		BLOCK	:	TEST_EXECUTION_SUCCESS
+		{
+			Value = ""
+		
+			LINE	:	TEST_START
+			{
+				Value = "Test Case '-[ApiNotificationManagerTests testhandleApiNoifications_calledWithNullRequest_doesNotThrow]' started."
+			
+				VARIABLE SEQUENCE	:	TEST_START
+				{
+					Value = "Test Case '-[ApiNotificationManagerTests testhandleApiNoifications_calledWithNullRequest_doesNotThrow]' started."
+				
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "Test Case '-["
+					}
+					VARIABLE	:	TEST_SUITE
+					{
+						Value = "ApiNotificationManagerTests"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " "
+					}
+					VARIABLE	:	TEST
+					{
+						Value = "testhandleApiNoifications_calledWithNullRequest_doesNotThrow"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "]' started."
+					}
+				}
+			}
+			LINE	:	TEST_PASSED
+			{
+				Value = "Test Case '-[ApiNotificationManagerTests testhandleApiNoifications_calledWithNullRequest_doesNotThrow]' passed (0.000 seconds)."
+			
+				VARIABLE SEQUENCE	:	TEST_PASSED
+				{
+					Value = "Test Case '-[ApiNotificationManagerTests testhandleApiNoifications_calledWithNullRequest_doesNotThrow]' passed (0.000 seconds)."
+				
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "Test Case '-["
+					}
+					VARIABLE	:	TEST_SUITE
+					{
+						Value = "ApiNotificationManagerTests"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " "
+					}
+					VARIABLE	:	TEST
+					{
+						Value = "testhandleApiNoifications_calledWithNullRequest_doesNotThrow"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "]' passed ("
+					}
+					VARIABLE	:	TIME_INTERVAL
+					{
+						Value = ""
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " seconds)."
+					}
+				}
+			}
+		}
+	}
+	BLOCK	:	TEST_EXECUTION
+	{
+		Value = ""
+	
+		BLOCK	:	TEST_EXECUTION_SUCCESS
+		{
+			Value = ""
+		
+			LINE	:	TEST_START
+			{
+				Value = "Test Case '-[ApiNotificationManagerTests testhandleApiNoifications_calledWithNullResult_doesNotThrow]' started."
+			
+				VARIABLE SEQUENCE	:	TEST_START
+				{
+					Value = "Test Case '-[ApiNotificationManagerTests testhandleApiNoifications_calledWithNullResult_doesNotThrow]' started."
+				
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "Test Case '-["
+					}
+					VARIABLE	:	TEST_SUITE
+					{
+						Value = "ApiNotificationManagerTests"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " "
+					}
+					VARIABLE	:	TEST
+					{
+						Value = "testhandleApiNoifications_calledWithNullResult_doesNotThrow"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "]' started."
+					}
+				}
+			}
+			LINE	:	TEST_PASSED
+			{
+				Value = "Test Case '-[ApiNotificationManagerTests testhandleApiNoifications_calledWithNullResult_doesNotThrow]' passed (0.000 seconds)."
+			
+				VARIABLE SEQUENCE	:	TEST_PASSED
+				{
+					Value = "Test Case '-[ApiNotificationManagerTests testhandleApiNoifications_calledWithNullResult_doesNotThrow]' passed (0.000 seconds)."
+				
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "Test Case '-["
+					}
+					VARIABLE	:	TEST_SUITE
+					{
+						Value = "ApiNotificationManagerTests"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " "
+					}
+					VARIABLE	:	TEST
+					{
+						Value = "testhandleApiNoifications_calledWithNullResult_doesNotThrow"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "]' passed ("
+					}
+					VARIABLE	:	TIME_INTERVAL
+					{
+						Value = ""
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " seconds)."
+					}
+				}
+			}
+		}
+	}
+	BLOCK	:	TEST_EXECUTION
+	{
+		Value = ""
+	
+		BLOCK	:	TEST_EXECUTION_SUCCESS
+		{
+			Value = ""
+		
+			LINE	:	TEST_START
+			{
+				Value = "Test Case '-[ApiNotificationManagerTests testnotificationTranslations_propertyExists]' started."
+			
+				VARIABLE SEQUENCE	:	TEST_START
+				{
+					Value = "Test Case '-[ApiNotificationManagerTests testnotificationTranslations_propertyExists]' started."
+				
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "Test Case '-["
+					}
+					VARIABLE	:	TEST_SUITE
+					{
+						Value = "ApiNotificationManagerTests"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " "
+					}
+					VARIABLE	:	TEST
+					{
+						Value = "testnotificationTranslations_propertyExists"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "]' started."
+					}
+				}
+			}
+			LINE	:	TEST_PASSED
+			{
+				Value = "Test Case '-[ApiNotificationManagerTests testnotificationTranslations_propertyExists]' passed (0.000 seconds)."
+			
+				VARIABLE SEQUENCE	:	TEST_PASSED
+				{
+					Value = "Test Case '-[ApiNotificationManagerTests testnotificationTranslations_propertyExists]' passed (0.000 seconds)."
+				
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "Test Case '-["
+					}
+					VARIABLE	:	TEST_SUITE
+					{
+						Value = "ApiNotificationManagerTests"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " "
+					}
+					VARIABLE	:	TEST
+					{
+						Value = "testnotificationTranslations_propertyExists"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "]' passed ("
+					}
+					VARIABLE	:	TIME_INTERVAL
+					{
+						Value = ""
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " seconds)."
+					}
+				}
+			}
+		}
+	}
+	BLOCK	:	TEST_EXECUTION
+	{
+		Value = ""
+	
+		BLOCK	:	TEST_EXECUTION_SUCCESS
+		{
+			Value = ""
+		
+			LINE	:	TEST_START
+			{
+				Value = "Test Case '-[ApiNotificationManagerTests testnotificationTranslations_whenObjectCreatedThroughDI_propertyInjectedProperly]' started."
+			
+				VARIABLE SEQUENCE	:	TEST_START
+				{
+					Value = "Test Case '-[ApiNotificationManagerTests testnotificationTranslations_whenObjectCreatedThroughDI_propertyInjectedProperly]' started."
+				
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "Test Case '-["
+					}
+					VARIABLE	:	TEST_SUITE
+					{
+						Value = "ApiNotificationManagerTests"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " "
+					}
+					VARIABLE	:	TEST
+					{
+						Value = "testnotificationTranslations_whenObjectCreatedThroughDI_propertyInjectedProperly"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "]' started."
+					}
+				}
+			}
+			LINE	:	TEST_PASSED
+			{
+				Value = "Test Case '-[ApiNotificationManagerTests testnotificationTranslations_whenObjectCreatedThroughDI_propertyInjectedProperly]' passed (0.000 seconds)."
+			
+				VARIABLE SEQUENCE	:	TEST_PASSED
+				{
+					Value = "Test Case '-[ApiNotificationManagerTests testnotificationTranslations_whenObjectCreatedThroughDI_propertyInjectedProperly]' passed (0.000 seconds)."
+				
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "Test Case '-["
+					}
+					VARIABLE	:	TEST_SUITE
+					{
+						Value = "ApiNotificationManagerTests"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " "
+					}
+					VARIABLE	:	TEST
+					{
+						Value = "testnotificationTranslations_whenObjectCreatedThroughDI_propertyInjectedProperly"
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = "]' passed ("
+					}
+					VARIABLE	:	TIME_INTERVAL
+					{
+						Value = ""
+					}
+					VARIABLE	:	CONSTANT STRING
+					{
+						Value = " seconds)."
+					}
+				}
+			}
+		}
+	}
+	LINE	:	TEST_SUITE_END
+	{
+		Value = "Test Suite 'ApiNotificationManagerTests' finished at 2013-07-07 22:01:41 +0000."
+	
+		VARIABLE SEQUENCE	:	TEST_SUITE_END
+		{
+			Value = "Test Suite 'ApiNotificationManagerTests' finished at 2013-07-07 22:01:41 +0000"
+		
+			VARIABLE	:	CONSTANT STRING
+			{
+				Value = "Test Suite '"
+			}
+			VARIABLE	:	TEST_SUITE
+			{
+				Value = "ApiNotificationManagerTests"
+			}
+			VARIABLE	:	CONSTANT STRING
+			{
+				Value = "' finished at "
+			}
+			VARIABLE SEQUENCE	:	TIMESTAMP
+			{
+				Value = "2013-07-07 22:01:41 +0000"
+			
+				VARIABLE	:	YEAR
+				{
+					Value = "2013"
+				}
+				VARIABLE	:	CONSTANT STRING
+				{
+					Value = "-"
+				}
+				VARIABLE	:	MONTH
+				{
+					Value = "07"
+				}
+				VARIABLE	:	CONSTANT STRING
+				{
+					Value = "-"
+				}
+				VARIABLE	:	DATE
+				{
+					Value = "07"
+				}
+				VARIABLE	:	CONSTANT STRING
+				{
+					Value = " "
+				}
+				VARIABLE	:	HOUR
+				{
+					Value = "22"
+				}
+				VARIABLE	:	CONSTANT STRING
+				{
+					Value = ":"
+				}
+				VARIABLE	:	MINUTE
+				{
+					Value = "01"
+				}
+				VARIABLE	:	CONSTANT STRING
+				{
+					Value = ":"
+				}
+				VARIABLE	:	SECONDS
+				{
+					Value = "41"
+				}
+				VARIABLE	:	CONSTANT STRING
+				{
+					Value = " +"
+				}
+				VARIABLE	:	Anonymous
+				{
+					Value = "0000"
+				}
+			}
+		}
+	}
+	LINE	:	TEST_SUITE_RESULT
+	{
+		Value = "Executed 8 tests, with 0 failures (0 unexpected) in 0.001 (0.002) seconds"
+	
+		VARIABLE SEQUENCE	:	TEST_SUITE_RESULT
+		{
+			Value = "Executed 8 tests, with 0 failures (0 unexpected) in 0.001 "
+		
+			VARIABLE	:	CONSTANT STRING
+			{
+				Value = "Executed "
+			}
+			VARIABLE	:	TEST_COUNT
+			{
+				Value = "8"
+			}
+			VARIABLE	:	CONSTANT STRING
+			{
+				Value = " tests, with "
+			}
+			VARIABLE	:	FAILURE_COUNT
+			{
+				Value = "0"
+			}
+			VARIABLE	:	CONSTANT STRING
+			{
+				Value = " failures ("
+			}
+			VARIABLE	:	Anonymous
+			{
+				Value = "0"
+			}
+			VARIABLE	:	CONSTANT STRING
+			{
+				Value = " unexpected) in "
+			}
+			VARIABLE	:	TIME_INTERVAL
+			{
+				Value = ""
+			}
+			VARIABLE	:	Anonymous
+			{
+				Value = " "
+			}
+		}
+	}
+}
+LINE	:	DEFAULT_LINE_TEMPLATE
+{
+	Value = ""
+}
