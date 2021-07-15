@@ -228,3 +228,115 @@ func Log_CreateDirectory(fileId string){
 		log.Fatal(err)
 	}
 }
+
+
+func Log_GetDefFileTempalte(fileId string){
+
+	//Open DefFile template
+
+	defFileTemplate, err := os.Open("util/templates/Defs.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer defFileTemplate.Close();
+
+
+	//Create New File
+
+	newFilePath := "localstorage/" + fileId +"/Defs.txt"
+	newFile, err := os.Create(newFilePath )
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer newFile.Close()
+
+	//Copy bytes create a new Template
+
+
+	// Copy the bytes to destination from source
+	bytesWritten, err := io.Copy(newFile, defFileTemplate)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("Copied %d bytes.", bytesWritten)
+
+	// Commit the file contents
+	// Flushes memory to disk
+	err = newFile.Sync()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+
+}
+
+func Log_Append_LDEL_ScriptLocation(fileId string){
+
+	defFileLocation := "localstorage/"+fileId+"/Defs.txt"
+	newDef:= "DEF	LDEL_SCRIPT_FILE			../src/localstorage/" + fileId + "/script.txt\n"
+
+
+	defFile,err := os.OpenFile(defFileLocation,
+		os.O_APPEND|os.O_CREATE|os.O_WRONLY,0644) 
+
+	if err != nil{
+		log.Println(err)
+	}
+
+	defer defFile.Close();
+
+	if _, err := defFile.WriteString(newDef); err != nil {
+		log.Println(err)
+	}
+
+
+
+}
+
+
+func Log_Append_LDEL_LogFileLocation(fileId string, fileName string){
+
+
+	defFileLocation := "localstorage/"+fileId+"/Defs.txt"
+	newDef:= "DEF	LDEL_LOG_FILE				../src/localstorage/" + fileId + "/" + fileName + "\n";
+
+
+	defFile,err := os.OpenFile(defFileLocation,
+		os.O_APPEND|os.O_CREATE|os.O_WRONLY,0644) 
+
+	if err != nil{
+		log.Println(err)
+	}
+
+	defer defFile.Close();
+
+	if _, err := defFile.WriteString(newDef); err != nil {
+		log.Println(err)
+	}
+
+}
+
+func Log_Append_LDEL_ResultLocation(fileId string){
+
+
+	defFileLocation := "localstorage/"+fileId+"/Defs.txt"
+	newDef:= "DEF	LDEL_SCRIPT_FILE			../src/localstorage/" + fileId + "/result.txt\n"
+
+
+	defFile,err := os.OpenFile(defFileLocation,
+		os.O_APPEND|os.O_CREATE|os.O_WRONLY,0644) 
+
+	if err != nil{
+		log.Println(err)
+	}
+
+	defer defFile.Close();
+
+	if _, err := defFile.WriteString(newDef); err != nil {
+		log.Println(err)
+	}
+
+
+
+}

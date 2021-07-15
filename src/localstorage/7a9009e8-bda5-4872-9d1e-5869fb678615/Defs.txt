@@ -1,0 +1,3 @@
+DEF	LDEL_SCRIPT_FILE			../src/localstorage/7a9009e8-bda5-4872-9d1e-5869fb678615/script.txt
+DEF	LDEL_LOG_FILE				../src/localstorage/7a9009e8-bda5-4872-9d1e-5869fb678615/log1.txt
+DEF	LDEL_SCRIPT_FILE			../src/localstorage/7a9009e8-bda5-4872-9d1e-5869fb678615/result.txt
