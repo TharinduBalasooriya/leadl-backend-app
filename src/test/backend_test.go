@@ -8,10 +8,7 @@ import (
 
 
 
-func Test(t *testing.T) {
+func TestCreateDir(t *testing.T) {
     models.Log_CreateDirectory("12212");
-}
-
-func TestFileTemplateCopy(t *testing.T){
 
 }
