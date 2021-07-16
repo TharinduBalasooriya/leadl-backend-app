@@ -272,14 +272,53 @@ func Log_GetDefFileTempalte(fileId string){
 
 }
 
-func Log_EXECUTE_LDEL(fileId string){
+func Log_Execute_LDEL(fileId string){
 
 	defFilePath := "localstorage/"  + fileId + "/Defs.txt";
 
 	fclLib.NewELInterpretterWrapper().RunELInterpretter(defFilePath);
 
 
+
 }
+
+
+func Log_Read_Result(fileId string)(interface{}){
+	resultFilePath := "localstorage/"  + fileId + "/result.txt";
+
+	// Open file for reading
+    file, err := os.Open(resultFilePath)
+    if err != nil {
+        log.Fatal(err)
+    }
+	defer file.Close();
+
+	data, err := ioutil.ReadAll(file)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+	type Response struct{
+		FileId string `json:"fileId"`
+		Result string `json:"result"`
+	}
+
+	response := Response{}
+
+	response.FileId = fileId;
+	response.Result = string(data)
+
+
+
+	return response;
+
+
+
+
+
+
+}
+
 
 func Log_Append_LDEL_ScriptLocation(fileId string){
 

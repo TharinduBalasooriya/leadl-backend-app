@@ -55,31 +55,29 @@ func GetFileList(user string) []datamodels.Log {
 
 	loglist := logrepo.GetLogsByUser(user)
 
-	
-
 	return loglist
 }
 
-
-func GetProjects(user string) (interface{}){
+func GetProjects(user string) interface{} {
 
 	projectList := logrepo.GetProjectsByUser(user)
 
 	return projectList
 }
+
 var logrepo repository.LogRepository
 
-func GetLogListByUsernProject(user string,project string)(interface{}){
-	logList := logrepo.GetLogsByUser_Project(user,project);
+func GetLogListByUsernProject(user string, project string) interface{} {
+	logList := logrepo.GetLogsByUser_Project(user, project)
 	return logList
-	
+
 }
 
 func LogGetFileContent(user string, project string, log string) LogContent {
 
 	//fmt.Println(user)
 	bucket := "leadl/logs/" + user + "/" + project + "/"
-	
+
 	/*
 		TODO:change extension to config
 	*/
@@ -103,7 +101,7 @@ func LogGetFileContent(user string, project string, log string) LogContent {
 	}
 
 	/*
-		
+
 		TODO:Handle download time
 	*/
 	return logcontent
@@ -115,40 +113,89 @@ const (
 	S3_BUCKET = "leadl"
 )
 
+func ExecuteLDEL(fileId string) (interface{}){
 
+	logFileDetails := logrepo.GetLogFileDetails(fileId)
+	Config_LDEL_DEF(logFileDetails.LogFileName, logFileDetails.FileId)
+	models.Log_Execute_LDEL(fileId)
+	result := models.Log_Read_Result(fileId);
 
-func ExecuteLDEL(fileId string){
-
-	logFileDetails := logrepo.GetLogFileDetails(fileId);
-	Config_LDEL_DEF(logFileDetails.LogFileName,logFileDetails.FileId);
-	models.Log_EXECUTE_LDEL(fileId);
-
-}
-
-func Config_LDEL_DEF(logFileName string,fileID string){
-
-	models.Log_CreateDirectory(fileID);
-	models.Log_GetDefFileTempalte(fileID);
-	models.Log_Append_LDEL_ScriptLocation(fileID);
-	models.Log_Append_LDEL_LogFileLocation(fileID,logFileName);
-	models.Log_Append_LDEL_ResultLocation(fileID);
+	return result
 
 }
 
-func LogGetFileContentv2(fileId string) (interface{}){
+func Config_LDEL_DEF(logFileName string, fileID string) {
 
-	
+	models.Log_CreateDirectory(fileID)
+	models.Log_GetDefFileTempalte(fileID)
+	models.Log_Append_LDEL_ScriptLocation(fileID)
+	models.Log_Append_LDEL_LogFileLocation(fileID, logFileName)
+	models.Log_Append_LDEL_ResultLocation(fileID)
+
+}
+
+func GetToActiveDir(fileId string) string{
+
 	logFileDetails := logrepo.GetLogFileDetails(fileId)
 	user := logFileDetails.Username
 	project := logFileDetails.ProjectName
 	var filename = logFileDetails.LogFileName
 	var extension = filepath.Ext(filename)
-	var log = filename[0:len(filename)-len(extension)]
-
-
+	var logf = filename[0 : len(filename)-len(extension)]
 
 	bucket := "leadl/logs/" + user + "/" + project + "/"
-	
+
+	/*
+		TODO:change extension to config
+	*/
+	item := logf + os.Getenv("BUCKET_ITEM_EXT")
+	//item := log + ".txt.zip"
+
+	//fmt.Print(bucket+item)
+
+	object := filestorageHandler.AWS_S3_Object{
+		Bucket: bucket,
+		Item:   item,
+	}
+
+	data := models.Log_GetContent(object, logf)
+
+	Config_LDEL_DEF(filename, logFileDetails.FileId)
+
+	// Open a new file for writing only
+	filePath := "localstorage/" + fileId + "/" + filename
+	file, err := os.OpenFile(
+		filePath,
+		os.O_WRONLY|os.O_TRUNC|os.O_CREATE,
+		0666,
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	_, err = file.Write(data)
+	if err != nil {
+		log.Fatal(err)
+	}
+	//log.Printf("Wrote %d bytes.\n in localstorage", bytesWritten)
+
+
+	return fileId +  " : Activated"; 
+
+}
+
+func LogGetFileContentv2(fileId string) interface{} {
+
+	logFileDetails := logrepo.GetLogFileDetails(fileId)
+	user := logFileDetails.Username
+	project := logFileDetails.ProjectName
+	var filename = logFileDetails.LogFileName
+	var extension = filepath.Ext(filename)
+	var log = filename[0 : len(filename)-len(extension)]
+
+	bucket := "leadl/logs/" + user + "/" + project + "/"
+
 	/*
 		TODO:change extension to config
 	*/
@@ -172,60 +219,47 @@ func LogGetFileContentv2(fileId string) (interface{}){
 	}
 
 	/*
-		
+
 		TODO:Handle download time
 	*/
 	return logcontent
-	
-	
+
 	//return logFileDetails
 
 }
 
-func LogSaveDetails(userName string, projectName string,logFileName string,fileID string){
+func LogSaveDetails(userName string, projectName string, logFileName string, fileID string) {
 
 	logfile := datamodels.Log{
-		Username: userName,
-		FileId:fileID ,
+		Username:    userName,
+		FileId:      fileID,
 		LogFileName: logFileName,
 		ProjectName: projectName,
-		LastUpdate: time.Now().String(),
-		
-
+		LastUpdate:  time.Now().String(),
 	}
 
-	
+	exist, res := logrepo.CheckLogExist(logfile)
 
-	 exist,res := logrepo.CheckLogExist(logfile)
+	if exist {
 
-	if exist{
+		fmt.Println("Log Already Exist")
+		logrepo.UpdateTimeStamp(res)
 
+	} else {
 
-	fmt.Println("Log Already Exist")
-	logrepo.UpdateTimeStamp(res)
+		results, err := models.Log_Save_Details(logfile)
 
-
-
-	}else{
-
-		results,err:=models.Log_Save_Details(logfile);
-
-		if err != nil{
+		if err != nil {
 			log.Fatal(err)
 
 		}
 
-		id := results.(primitive.ObjectID);
+		id := results.(primitive.ObjectID)
 		fmt.Println("Successfully inserted" + id.String())
 
 	}
 
-
-	
-
 }
-
-
 
 func LogUploadFiles(path string, inputfile multipart.File) {
 
@@ -256,9 +290,6 @@ func LogUploadFiles(path string, inputfile multipart.File) {
 	models.Log_uploadFiles(s3)
 
 }
-
-
-
 
 type Update struct {
 	UserName    string `json:"userName"`
