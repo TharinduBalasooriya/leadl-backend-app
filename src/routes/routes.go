@@ -1,8 +1,9 @@
 package routes
 
 import (
-	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/api"
+	
 	"github.com/gorilla/mux"
+	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/api"
 
 	//"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/middleware"
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/websocket"
@@ -59,6 +60,10 @@ func LogRoutes() *mux.Router {
 
 
 	//router.Use(middleware.LoggingMiddleware)
+
+
+	router.HandleFunc("/api/Project", api.HandleProject).Methods("POST")
+
 
 
 

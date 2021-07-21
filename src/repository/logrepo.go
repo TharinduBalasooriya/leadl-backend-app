@@ -202,12 +202,6 @@ func (l *LogRepository) GetProjectsByUser(username string) (interface{}){
 		fmt.Println(err)
 	}
 
-	
-	
-
-
-
-
 	return projetcs
 
 }
@@ -224,13 +218,7 @@ func (l *LogRepository) GetLogFileDetails(fileId string)(datamodels.Log){
 	result  := log_collection.FindOne(ctx,bson.M{"fileid":fileId})
 
 	result.Decode(&resultDecode)
-
-
-	
-	//result := log_collection.FindId()
-
 	return resultDecode
 
-
-
 }
+

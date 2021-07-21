@@ -7,14 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-
-	//"log"
-
-	//"io/ioutil"
-	//"log"
 	"net/http"
-	//"os"
-
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/controller"
 	"github.com/gorilla/mux"
 )
@@ -79,9 +72,7 @@ func HandleLogFileUpload(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("File Upload Endpoint Hit")
 
 	r.ParseMultipartForm(10 << 20)
-	// FormFile returns the first file for the given key `myFile`
-	// it also returns the FileHeader so we can get the Filename,
-	// the Header and the size of the file
+	
 	file, handler, err := r.FormFile("logFile")
 	userName := r.FormValue("userName")
 	projectName := r.FormValue("projectName")
@@ -161,11 +152,8 @@ func HandleInvokeELInterpreter(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 
-	controller.ExecuteLDEL(params["fileId"]);
-	
+	controller.ExecuteLDEL(params["fileId"])
 
-	
-
-	fmt.Fprintf(w, "Invoke Enpoint Called" + params["fileId"])
+	fmt.Fprintf(w, "Invoke Enpoint Called"+params["fileId"])
 
 }
