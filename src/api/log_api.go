@@ -56,7 +56,6 @@ func GetAllProjects(w http.ResponseWriter, r *http.Request) {
 
 func GetLogListByUsernProject(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Println("GotHere")
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	//logs := controller.GetProjects(params["user"])
@@ -65,6 +64,14 @@ func GetLogListByUsernProject(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func HandleActiavetLogFile(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	params := mux.Vars(r)
+
+	result := controller.GetToActiveDir(params["fileId"])
+	json.NewEncoder(w).Encode(result)
+
+}
 func HandleLogFileUpload(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
@@ -96,7 +103,7 @@ func HandleLogFileUpload(w http.ResponseWriter, r *http.Request) {
 	//controller.LogUploadFiles(fullFilePath, file)
 	controller.LogUploadFiles(fullFilePath, file)
 	controller.LogSaveDetails(userName, projectName, fileName, fileId)
-	controller.Config_LDEL_DEF(fileName, fileId)
+	//controller.Config_LDEL_DEF(fileName, fileId)
 
 }
 
@@ -152,8 +159,10 @@ func HandleInvokeELInterpreter(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 
-	controller.ExecuteLDEL(params["fileId"])
 
-	fmt.Fprintf(w, "Invoke Enpoint Called"+params["fileId"])
+	result := controller.ExecuteLDEL(params["fileId"])
+
+	json.NewEncoder(w).Encode(result)
+
 
 }
