@@ -101,7 +101,6 @@ func LogGetFileContent(user string, project string, log string) LogContent {
 	}
 
 	/*
-
 		TODO:Handle download time
 	*/
 	return logcontent
@@ -113,11 +112,14 @@ const (
 	S3_BUCKET = "leadl"
 )
 
-func ExecuteLDEL(fileId string) {
+func ExecuteLDEL(fileId string) (interface{}){
 
 	logFileDetails := logrepo.GetLogFileDetails(fileId)
 	Config_LDEL_DEF(logFileDetails.LogFileName, logFileDetails.FileId)
-	models.Log_EXECUTE_LDEL(fileId)
+	models.Log_Execute_LDEL(fileId)
+	result := models.Log_Read_Result(fileId);
+
+	return result
 
 }
 
@@ -128,6 +130,57 @@ func Config_LDEL_DEF(logFileName string, fileID string) {
 	models.Log_Append_LDEL_ScriptLocation(fileID)
 	models.Log_Append_LDEL_LogFileLocation(fileID, logFileName)
 	models.Log_Append_LDEL_ResultLocation(fileID)
+
+}
+
+func GetToActiveDir(fileId string) string{
+
+	logFileDetails := logrepo.GetLogFileDetails(fileId)
+	user := logFileDetails.Username
+	project := logFileDetails.ProjectName
+	var filename = logFileDetails.LogFileName
+	var extension = filepath.Ext(filename)
+	var logf = filename[0 : len(filename)-len(extension)]
+
+	bucket := "leadl/logs/" + user + "/" + project + "/"
+
+	/*
+		TODO:change extension to config
+	*/
+	item := logf + os.Getenv("BUCKET_ITEM_EXT")
+	//item := log + ".txt.zip"
+
+	//fmt.Print(bucket+item)
+
+	object := filestorageHandler.AWS_S3_Object{
+		Bucket: bucket,
+		Item:   item,
+	}
+
+	data := models.Log_GetContent(object, logf)
+
+	Config_LDEL_DEF(filename, logFileDetails.FileId)
+
+	// Open a new file for writing only
+	filePath := "localstorage/" + fileId + "/" + filename
+	file, err := os.OpenFile(
+		filePath,
+		os.O_WRONLY|os.O_TRUNC|os.O_CREATE,
+		0666,
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	_, err = file.Write(data)
+	if err != nil {
+		log.Fatal(err)
+	}
+	//log.Printf("Wrote %d bytes.\n in localstorage", bytesWritten)
+
+
+	return fileId +  " : Activated"; 
 
 }
 
@@ -165,7 +218,6 @@ func LogGetFileContentv2(fileId string) interface{} {
 	}
 
 	/*
-
 		TODO:Handle download time
 	*/
 	return logcontent
