@@ -1,10 +1,7 @@
 package controller
 
 import (
-	//"io/ioutil"
-	//"archive/zip"
 
-	//"flag"
 	"fmt"
 	"io/ioutil"
 	"log"

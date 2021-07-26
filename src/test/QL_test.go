@@ -1,19 +1,16 @@
 package test
 
-import(
-	"testing"
+import (
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/LogAnalyzer"
-	
+	"testing"
 )
 
 func connectQL(t *testing.T){
 
 	Tests := LDELib.NewELInterpretterWrapper();
-    Tests.RunELInterpretter("/home/codebind/go/src/github.com/isini/Code/tests/LDEL_test1/Defs.txt");
-
-
-
-
+    Tests.RunELInterpretter("D:\\Tracified\\LogAnalyzer\\Leedl-backend\\src\\debug_env\\Defs.txt");
 }
+
+
 
 
