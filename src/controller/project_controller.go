@@ -38,3 +38,12 @@ func ProjectSaveDetails(project datamodels.Project) {
 	}
 
 }
+
+
+
+func GetProjectsV2(user string) []datamodels.Project {
+
+	projectList := projectrepo.GetProjectsByUserV2(user)
+
+	return projectList
+}

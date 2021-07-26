@@ -62,7 +62,8 @@ func LogRoutes() *mux.Router {
 	//router.Use(middleware.LoggingMiddleware)
 
 
-	router.HandleFunc("/api/Project", api.HandleProject).Methods("POST")
+	router.HandleFunc("/api/project", api.HandleProject).Methods("POST")
+	router.HandleFunc("/api/projectV2/{user}", api.GetAllProjectsV2).Methods("Get")
 
 
 

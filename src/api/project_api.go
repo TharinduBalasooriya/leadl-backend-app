@@ -7,6 +7,7 @@ import (
 
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/controller"
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/datamodels"
+	"github.com/gorilla/mux"
 )
 
 
@@ -28,5 +29,15 @@ func HandleProject(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("project create Endpoint Hit")
 	
 	
+
+}
+
+func GetAllProjectsV2(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Content-Type", "application/json")
+	params := mux.Vars(r)
+	logs := controller.GetProjectsV2(params["user"])
+	fmt.Print(logs)
+	json.NewEncoder(w).Encode(logs)
 
 }
