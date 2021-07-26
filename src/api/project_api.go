@@ -54,3 +54,17 @@ func HandleUpdateProjects(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(result)
 
 }
+
+func HandleDeleteProjects(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	params := mux.Vars(r)
+
+
+	result := controller.DeleteProject(params["projectID"])
+	
+	
+	fmt.Print(result)
+	
+
+}
