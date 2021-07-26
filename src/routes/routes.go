@@ -64,6 +64,11 @@ func LogRoutes() *mux.Router {
 	//update project
 	router.HandleFunc("/api/project/update", api.HandleUpdateProjects).Methods("PUT")
 
+	//delete project
+	router.HandleFunc("/api/project/delete/{projectID}", api.HandleDeleteProjects).Methods("DELETE")
+
+
+
 
 
 	router.HandleFunc("/api/logs/activateLog/{fileId}", api.HandleActiavetLogFile).Methods("GET")

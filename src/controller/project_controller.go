@@ -53,3 +53,10 @@ func GetProjectsV2(user string) []datamodels.Project {
 
 	return projectList
 }
+
+func DeleteProject(projectId string) interface{} {
+
+	results := projectrepo.DeleteProject(projectId)
+
+	return results
+}
