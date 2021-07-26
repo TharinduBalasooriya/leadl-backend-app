@@ -66,3 +66,35 @@ func (l *ProjectRepository) CheckprojectExist(project datamodels.Project) (bool,
 	}
 
 }
+
+func (l *ProjectRepository) GetProjectsByUserV2(userId string) []datamodels.Project{
+
+	var projects []datamodels.Project
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	
+	filterCursor, err := project_collection.Find(ctx, bson.M{"userid": userId})
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	defer filterCursor.Close(ctx)
+	for filterCursor.Next(ctx){
+
+		var project datamodels.Project
+		filterCursor.Decode(&project)
+		projects = append(projects, project)
+	}
+
+	if err := filterCursor.Err(); err != nil {
+		fmt.Println(err.Error())
+		
+	}
+
+	return projects
+
+
+}
+

@@ -2,8 +2,10 @@ package datamodels
 
 type Project struct {
 	
-	ProjectName  string `json:"projectName"`
+	
+	ProjectName  string `json:"projectname"`
 	Location     string `json:"location"`
-	UserId       string `json:"userId"`
-	ProjectId    string   `json:"ProjectId"` 
+	UserId       string `json:"userid"`
+	ExpireDate    string   `json:"expiredate"`
+ 
 }
