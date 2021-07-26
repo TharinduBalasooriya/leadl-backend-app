@@ -39,6 +39,12 @@ func ProjectSaveDetails(project datamodels.Project) {
 
 }
 
+func UpdateProject(project datamodels.Project) interface{} {
+
+	results := projectrepo.UpadteProject(project)
+
+	return results
+}
 
 
 func GetProjectsV2(user string) []datamodels.Project {

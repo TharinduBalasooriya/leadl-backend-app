@@ -101,7 +101,6 @@ func LogGetFileContent(user string, project string, log string) LogContent {
 	}
 
 	/*
-
 		TODO:Handle download time
 	*/
 	return logcontent
@@ -219,7 +218,6 @@ func LogGetFileContentv2(fileId string) interface{} {
 	}
 
 	/*
-
 		TODO:Handle download time
 	*/
 	return logcontent

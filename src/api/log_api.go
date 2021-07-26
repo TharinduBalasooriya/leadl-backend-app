@@ -6,10 +6,10 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/controller"
 	"github.com/gorilla/mux"
+	"io/ioutil"
+	"net/http"
 )
 
 /*
@@ -79,7 +79,7 @@ func HandleLogFileUpload(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("File Upload Endpoint Hit")
 
 	r.ParseMultipartForm(10 << 20)
-	
+
 	file, handler, err := r.FormFile("logFile")
 	userName := r.FormValue("userName")
 	projectName := r.FormValue("projectName")
