@@ -1,9 +1,8 @@
 package routes
 
 import (
-	
-	"github.com/gorilla/mux"
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/api"
+	"github.com/gorilla/mux"
 
 	//"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/middleware"
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/websocket"
@@ -62,6 +61,8 @@ func LogRoutes() *mux.Router {
 
 
 	router.HandleFunc("/api/logs/activateLog/{fileId}", api.HandleActiavetLogFile).Methods("GET")
+
+	router.HandleFunc("/api/debug", api.HandelDebugLDEL).Methods("POST")
 
 
 	return router
