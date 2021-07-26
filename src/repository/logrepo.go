@@ -1,6 +1,6 @@
 package repository
 
-import  (
+import (
 	"context"
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
@@ -12,7 +12,6 @@ import  (
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/datamodels"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	
 )
 
 // type LogRepository interface {
@@ -22,14 +21,15 @@ import  (
 // 	GetByProjectname(projectname string)
 // }
 //
-var log_collection = new (mongo.Collection)
+var log_collection = new(mongo.Collection)
+
 const LogsCollection = "Logs"
 
 /*
 	Initalizing database configeration
 */
 
-func init(){
+func init() {
 
 	fmt.Println("Database Connection Established")
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
@@ -40,56 +40,46 @@ func init(){
 	}
 	log_collection = client.Database("leadldb").Collection(LogsCollection)
 
-
 }
+
 type LogRepository struct{}
-func (l *LogRepository) SaveLog(log datamodels.Log)(interface{}, error){
+
+func (l *LogRepository) SaveLog(log datamodels.Log) (interface{}, error) {
 
 	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
 	result, err := log_collection.InsertOne(ctx, log)
 	fmt.Println("Inserted a single document: ", result.InsertedID)
 	return result.InsertedID, err
 
-
-	
 }
 
+func (l *LogRepository) CheckLogExist(logfile datamodels.Log) (bool, string) {
 
-func (l *LogRepository) CheckLogExist(logfile datamodels.Log) (bool,string){
+	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
 
-	ctx,_:= context.WithTimeout(context.Background(),5*time.Second)
-
-   result  := log_collection.FindOne(ctx,bson.M{"username":logfile.Username,"projectname":logfile.ProjectName,"logfilename":logfile.LogFileName})
-
-
-
+	result := log_collection.FindOne(ctx, bson.M{"username": logfile.Username, "projectname": logfile.ProjectName, "logfilename": logfile.LogFileName})
 
 	var resultLog bson.M
 
-
-
 	result.Decode(&resultLog)
-
-   	
-
 
 	/*
 		check existences
 	*/
-	if len(resultLog) == 0{
+	if len(resultLog) == 0 {
 
 		return false, ""
 
-	}else{
+	} else {
 		stringObjectId := resultLog["_id"].(primitive.ObjectID).Hex()
-		return  true,stringObjectId
+		return true, stringObjectId
 	}
 
 }
 
-func (l *LogRepository) UpdateTimeStamp(objectId string){
+func (l *LogRepository) UpdateTimeStamp(objectId string) {
 
-	ctx,_:= context.WithTimeout(context.Background(),5*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
 
 	fmt.Println(objectId)
 	id, _ := primitive.ObjectIDFromHex(objectId)
@@ -106,27 +96,24 @@ func (l *LogRepository) UpdateTimeStamp(objectId string){
 		log.Fatal(err)
 	}
 
-	fmt.Printf("Time stamp updated %v" ,result.MatchedCount)
-
-
+	fmt.Printf("Time stamp updated %v", result.MatchedCount)
 
 }
 
-
 /*
 *
-*	TODO : Change to work with userId instead 
+*	TODO : Change to work with userId instead
 	of user Name
 *
 */
 
-func (l *LogRepository) GetLogsByUser(username string) []datamodels.Log{
+func (l *LogRepository) GetLogsByUser(username string) []datamodels.Log {
 
 	var logs []datamodels.Log
 
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	
+
 	filterCursor, err := log_collection.Find(ctx, bson.M{"username": username})
 
 	if err != nil {
@@ -134,7 +121,7 @@ func (l *LogRepository) GetLogsByUser(username string) []datamodels.Log{
 	}
 
 	defer filterCursor.Close(ctx)
-	for filterCursor.Next(ctx){
+	for filterCursor.Next(ctx) {
 
 		var log datamodels.Log
 		filterCursor.Decode(&log)
@@ -143,29 +130,28 @@ func (l *LogRepository) GetLogsByUser(username string) []datamodels.Log{
 
 	if err := filterCursor.Err(); err != nil {
 		fmt.Println(err.Error())
-		
+
 	}
 
 	return logs
 
-
 }
 
-func(l *LogRepository)GetLogsByUser_Project(username string,projectname string)[]datamodels.Log{
+func (l *LogRepository) GetLogsByUser_Project(username string, projectname string) []datamodels.Log {
 
 	var logs []datamodels.Log
 
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	
-	filterCursor, err := log_collection.Find(ctx, bson.M{"username": username,"projectname":projectname})
+
+	filterCursor, err := log_collection.Find(ctx, bson.M{"username": username, "projectname": projectname})
 
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	defer filterCursor.Close(ctx)
-	for filterCursor.Next(ctx){
+	for filterCursor.Next(ctx) {
 
 		var log datamodels.Log
 		filterCursor.Decode(&log)
@@ -174,17 +160,14 @@ func(l *LogRepository)GetLogsByUser_Project(username string,projectname string)[
 
 	if err := filterCursor.Err(); err != nil {
 		fmt.Println(err.Error())
-		
-	}
 
+	}
 
 	return logs
 
 }
 
-
-
-func (l *LogRepository) GetProjectsByUser(username string) (interface{}){
+func (l *LogRepository) GetProjectsByUser(username string) interface{} {
 
 	//var projetcs []string
 	//projetcs[0] = "23"
@@ -194,10 +177,10 @@ func (l *LogRepository) GetProjectsByUser(username string) (interface{}){
 
 	//_ ,err:= log_collection.Distinct(ctx,"projectname",bson.M{"username": username})
 
-	projetcs,err:= log_collection.Distinct(ctx,"projectname",bson.D{{"username",username}})
+	projetcs, err := log_collection.Distinct(ctx, "projectname", bson.D{{"username", username}})
 
 	//fmt.Println(result.)
-	
+
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -206,19 +189,16 @@ func (l *LogRepository) GetProjectsByUser(username string) (interface{}){
 
 }
 
-
-func (l *LogRepository) GetLogFileDetails(fileId string)(datamodels.Log){
-
+func (l *LogRepository) GetLogFileDetails(fileId string) datamodels.Log {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	fmt.Println("No issue here id : " + fileId)
 	var resultDecode datamodels.Log
-	result  := log_collection.FindOne(ctx,bson.M{"fileid":fileId})
+	result := log_collection.FindOne(ctx, bson.M{"fileid": fileId})
 
 	result.Decode(&resultDecode)
 	return resultDecode
 
 }
-

@@ -1,9 +1,8 @@
 package routes
 
 import (
-	
-	"github.com/gorilla/mux"
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/api"
+	"github.com/gorilla/mux"
 
 	//"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/middleware"
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/websocket"
@@ -27,7 +26,6 @@ func LogRoutes() *mux.Router {
 	//getAllProjetcs
 	router.HandleFunc("/api/projects/{user}/", api.GetAllProjects).Methods("GET")
 
-
 	//upload file
 	//router.HandleFunc("/api/uploads/{user}/{project}/{log}", api.HandleLogFileUpload).Methods("POST")
 	router.HandleFunc("/api/uploads/", api.HandleLogFileUpload).Methods("POST")
@@ -40,34 +38,30 @@ func LogRoutes() *mux.Router {
 
 	//get log file content v2
 
-	router.HandleFunc("/api/v2/content/{fileId}",api.GetLogFileContentv2).Methods("GET")
+	router.HandleFunc("/api/v2/content/{fileId}", api.GetLogFileContentv2).Methods("GET")
 
 	//catch the log file updates
 
-
-
-	router.HandleFunc("/api/updates",api.HandleFileUpdates).Methods("POST")
+	router.HandleFunc("/api/updates", api.HandleFileUpdates).Methods("POST")
 
 	//GetLogsByUserandProject
 
-	router.HandleFunc("/logapi/{user}/{project}",api.GetLogListByUsernProject).Methods("GET")
-	router.HandleFunc("/api/logs/getByProject/{user}/{project}",api.GetLogListByUsernProject).Methods("GET")
-	router.HandleFunc("/ws",websocket.WSPage).Methods("GET")
+	router.HandleFunc("/logapi/{user}/{project}", api.GetLogListByUsernProject).Methods("GET")
+	router.HandleFunc("/api/logs/getByProject/{user}/{project}", api.GetLogListByUsernProject).Methods("GET")
+	router.HandleFunc("/ws", websocket.WSPage).Methods("GET")
 
 	//Invoke Interpreter
 
-	router.HandleFunc("/api/executeLDEL/{fileId}",api.HandleInvokeELInterpreter).Methods("GET");
-
+	router.HandleFunc("/api/executeLDEL/{fileId}", api.HandleInvokeELInterpreter).Methods("GET")
 
 	//router.Use(middleware.LoggingMiddleware)
 
-
+	//Craete a project
 	router.HandleFunc("/api/project", api.HandleProject).Methods("POST")
+	//fetch a project by userId
 	router.HandleFunc("/api/projectV2/{user}", api.GetAllProjectsV2).Methods("Get")
-
-
-
-
+	//update projecr
+	router.HandleFunc("/api/project/update", api.HandleUpdateProjects).Methods("PUT")
 
 	return router
 }

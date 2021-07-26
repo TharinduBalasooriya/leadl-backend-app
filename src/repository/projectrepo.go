@@ -67,13 +67,13 @@ func (l *ProjectRepository) CheckprojectExist(project datamodels.Project) (bool,
 
 }
 
-func (l *ProjectRepository) GetProjectsByUserV2(userId string) []datamodels.Project{
+func (l *ProjectRepository) GetProjectsByUserV2(userId string) []datamodels.Project {
 
 	var projects []datamodels.Project
 
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	
+
 	filterCursor, err := project_collection.Find(ctx, bson.M{"userid": userId})
 
 	if err != nil {
@@ -81,7 +81,7 @@ func (l *ProjectRepository) GetProjectsByUserV2(userId string) []datamodels.Proj
 	}
 
 	defer filterCursor.Close(ctx)
-	for filterCursor.Next(ctx){
+	for filterCursor.Next(ctx) {
 
 		var project datamodels.Project
 		filterCursor.Decode(&project)
@@ -90,11 +90,33 @@ func (l *ProjectRepository) GetProjectsByUserV2(userId string) []datamodels.Proj
 
 	if err := filterCursor.Err(); err != nil {
 		fmt.Println(err.Error())
-		
+
 	}
 
 	return projects
 
-
 }
 
+func (l *ProjectRepository) UpadteProject(project datamodels.Project) interface{} {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	opts := options.Update().SetUpsert(true)
+	filter := bson.D{{"_id", project.ProjectId}}
+	update := bson.D{
+		{"$set", bson.D{{"projectname", project.ProjectName}}},
+		{"$set", bson.D{{"location", project.Location}}},
+		{"$set", bson.D{{"expiredate", project.ExpireDate}}},
+	}
+
+	result, err := project_collection.UpdateOne(ctx, filter, update, opts)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("Updated %v Documents!\n", result.ModifiedCount)
+
+	return result
+
+}
