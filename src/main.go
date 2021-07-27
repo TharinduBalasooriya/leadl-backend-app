@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/models"
 	"log"
 	"net/http"
 
@@ -28,7 +27,7 @@ func main() {
 
 	//Starting the API server
 	router := routes.LogRoutes()
-	models.GetDebugResult()
+
 
 
 	//Load the env file
