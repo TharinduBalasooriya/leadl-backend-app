@@ -120,3 +120,19 @@ func (l *ProjectRepository) UpadteProject(project datamodels.Project) interface{
 	return result
 
 }
+
+func (l *ProjectRepository) DeleteProject(projectId string) interface{}{
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	fmt.Print(projectId)
+	id, _ := primitive.ObjectIDFromHex(projectId)
+	result, err := project_collection.DeleteOne(ctx, bson.M{"_id": id})
+	if err != nil {
+    log.Fatal(err)
+	}
+	fmt.Printf("DeleteOne removed %v document(s)\n", result.DeletedCount)
+
+	return result
+
+}
+
