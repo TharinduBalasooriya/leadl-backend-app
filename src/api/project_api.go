@@ -59,12 +59,15 @@ func HandleDeleteProjects(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	params := mux.Vars(r)
-
-
 	result := controller.DeleteProject(params["projectID"])
-	
-	
 	fmt.Print(result)
-	
+}
+
+func HandleExistProjects(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	params := mux.Vars(r)
+	result := controller.CheckProject(params["projectID"])
+	fmt.Print(result)
 
 }
