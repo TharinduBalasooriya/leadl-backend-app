@@ -7,7 +7,7 @@ import (
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/datamodels"
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/repository"
 
-	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/models"
+	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/service"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
@@ -25,7 +25,7 @@ func ProjectSaveDetails(project datamodels.Project) {
 
 	} else {
 
-		results, err := models.Project_Save_Details(project)
+		results, err := service.Project_Save_Details(project)
 
 		if err != nil {
 			log.Fatal(err)

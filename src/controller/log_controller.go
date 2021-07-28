@@ -17,7 +17,7 @@ import (
 
 	//"io/ioutil"
 
-	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/models"
+	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/service"
 	filestorageHandler "github.com/TharinduBalasooriya/LogAnalyzerBackend/src/util/filestorage"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -88,7 +88,7 @@ func LogGetFileContent(user string, project string, log string) LogContent {
 		Item:   item,
 	}
 
-	data := models.Log_GetContent(object, log)
+	data := service.Log_GetContent(object, log)
 
 	var dataT = string(data)
 
@@ -113,8 +113,8 @@ func ExecuteLDEL(fileId string) (interface{}){
 
 	logFileDetails := logrepo.GetLogFileDetails(fileId)
 	Config_LDEL_DEF(logFileDetails.LogFileName, logFileDetails.FileId)
-	models.Log_Execute_LDEL(fileId)
-	result := models.Log_Read_Result(fileId);
+	service.Log_Execute_LDEL(fileId)
+	result := service.Log_Read_Result(fileId);
 
 	return result
 
@@ -122,11 +122,11 @@ func ExecuteLDEL(fileId string) (interface{}){
 
 func Config_LDEL_DEF(logFileName string, fileID string) {
 
-	models.Log_CreateDirectory(fileID)
-	models.Log_GetDefFileTempalte(fileID)
-	models.Log_Append_LDEL_ScriptLocation(fileID)
-	models.Log_Append_LDEL_LogFileLocation(fileID, logFileName)
-	models.Log_Append_LDEL_ResultLocation(fileID)
+	service.Log_CreateDirectory(fileID)
+	service.Log_GetDefFileTempalte(fileID)
+	service.Log_Append_LDEL_ScriptLocation(fileID)
+	service.Log_Append_LDEL_LogFileLocation(fileID, logFileName)
+	service.Log_Append_LDEL_ResultLocation(fileID)
 
 }
 
@@ -154,7 +154,7 @@ func GetToActiveDir(fileId string) string{
 		Item:   item,
 	}
 
-	data := models.Log_GetContent(object, logf)
+	data := service.Log_GetContent(object, logf)
 
 	Config_LDEL_DEF(filename, logFileDetails.FileId)
 
@@ -205,7 +205,7 @@ func LogGetFileContentv2(fileId string) interface{} {
 		Item:   item,
 	}
 
-	data := models.Log_GetContent(object, log)
+	data := service.Log_GetContent(object, log)
 
 	var dataT = string(data)
 
@@ -242,7 +242,7 @@ func LogSaveDetails(userName string, projectName string, logFileName string, fil
 
 	} else {
 
-		results, err := models.Log_Save_Details(logfile)
+		results, err := service.Log_Save_Details(logfile)
 
 		if err != nil {
 			log.Fatal(err)
@@ -282,7 +282,7 @@ func LogUploadFiles(path string, inputfile multipart.File) {
 		FileBytes: fileBytes,
 	}
 
-	models.Log_uploadFiles(s3)
+	service.Log_uploadFiles(s3)
 
 }
 
