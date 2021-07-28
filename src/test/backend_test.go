@@ -1,7 +1,7 @@
 package test
 
 import (
-    "github.com/TharinduBalasooriya/LogAnalyzerBackend/src/models"
+	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/service"
     "testing"
 )
 
@@ -9,6 +9,6 @@ import (
 
 
 func TestCreateDir(t *testing.T) {
-    models.Log_CreateDirectory("12212");
+    service.Log_CreateDirectory("12212");
 
 }

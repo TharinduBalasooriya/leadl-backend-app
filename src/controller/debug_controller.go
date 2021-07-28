@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/datamodels"
-	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/models"
+	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/service"
 )
 
 func GetLDELDebugResult(request datamodels.DebugRequest) datamodels.DebugResponse {
@@ -10,13 +10,13 @@ func GetLDELDebugResult(request datamodels.DebugRequest) datamodels.DebugRespons
 
 
 
-	 models.WriteDebugLogFile(request.LogFile)
-	 models.WriteDebugScriptFile(request.LDELScript)
-	 models.CreateDebugDefFile()
-	 models.ConfigDebugDefsFile()
+	 service.WriteDebugLogFile(request.LogFile)
+	 service.WriteDebugScriptFile(request.LDELScript)
+	 service.CreateDebugDefFile()
+	 service.ConfigDebugDefsFile()
 
 	var response datamodels.DebugResponse
-	response = models.GetDebugResult()
+	response = service.GetDebugResult()
 	return response
 
 }
