@@ -5,6 +5,7 @@ import (
 	//Importing file storage utility
 	"archive/zip"
 	"fmt"
+	fclLib "github.com/TharinduBalasooriya/LogAnalyzerBackend/LogAnalyzer"
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/datamodels"
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/repository"
 	filestorageHandler "github.com/TharinduBalasooriya/LogAnalyzerBackend/src/util/filestorage"
@@ -13,7 +14,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	fclLib "github.com/TharinduBalasooriya/LogAnalyzerBackend/LogAnalyzer"
 )
 
 /*
@@ -291,7 +291,7 @@ func Log_Read_Result(fileId string)(interface{}){
     if err != nil {
         log.Fatal(err)
     }
-	defer file.Close();
+	defer file.Close()
 
 	data, err := ioutil.ReadAll(file)
     if err != nil {
@@ -380,7 +380,7 @@ func Log_Append_LDEL_ResultLocation(fileId string){
 		log.Println(err)
 	}
 
-	defer defFile.Close();
+	defer defFile.Close()
 
 	if _, err := defFile.WriteString(newDef); err != nil {
 		log.Println(err)

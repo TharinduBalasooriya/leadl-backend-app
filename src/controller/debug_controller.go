@@ -5,18 +5,25 @@ import (
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/service"
 )
 
-func GetLDELDebugResult(request datamodels.DebugRequest) datamodels.DebugResponse {
+func GetLDELDebugResult(projectId string) datamodels.DebugResponse {
 
 
 
 
-	 service.WriteDebugLogFile(request.LogFile)
-	 service.WriteDebugScriptFile(request.LDELScript)
-	 service.CreateDebugDefFile()
-	 service.ConfigDebugDefsFile()
+
+	 service.CreateDebugDefFile(projectId)
+	 service.ConfigDebugDefsFile(projectId)
 
 	var response datamodels.DebugResponse
-	response = service.GetDebugResult()
+	response = service.GetDebugResult(projectId)
 	return response
+
+}
+
+
+func SaveDebugProject(request datamodels.DebugRequest){
+
+	service.WriteDebugLogFile(request)
+	service.WriteDebugScriptFile(request)
 
 }
