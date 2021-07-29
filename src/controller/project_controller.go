@@ -60,9 +60,9 @@ func DeleteProject(projectId string) interface{} {
 	return results
 }
 
-func CheckProject(projectId string) interface{} {
+func CheckProject(projectId string , userId string) interface{} {
 
-	results := projectrepo.CheckprojectExistById(projectId)
+	results := projectrepo.CheckprojectExistByUser(userId,projectId)
 
 	return results
 

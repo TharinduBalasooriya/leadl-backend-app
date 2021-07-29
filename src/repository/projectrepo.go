@@ -41,7 +41,7 @@ func (l *ProjectRepository) SaveProject(project datamodels.Project) (interface{}
 
 	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
 	result, err := project_collection.InsertOne(ctx, project)
-	fmt.Println("Inserted a single project: ", result.InsertedID)
+	fmt.Println("\nInserted a single project: ", result.InsertedID)
 	return result.InsertedID, err
 }
 
@@ -106,7 +106,6 @@ func (l *ProjectRepository) UpadteProject(project datamodels.Project) interface{
 	filter := bson.D{{"_id", project.ProjectId}}
 	update := bson.D{
 		{"$set", bson.D{{"projectname", project.ProjectName}}},
-		{"$set", bson.D{{"location", project.Location}}},
 		{"$set", bson.D{{"expiredate", project.ExpireDate}}},
 	}
 
@@ -136,21 +135,21 @@ func (l *ProjectRepository) DeleteProject(projectId string) interface{} {
 
 }
 
-func (l *ProjectRepository) CheckprojectExistById(projectId string) interface{} {
+func (l *ProjectRepository) CheckprojectExistByUser(projectName string , userId string) interface{} {
 	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
-	id, _ := primitive.ObjectIDFromHex(projectId)
-	result := project_collection.FindOne(ctx, bson.M{"_id": id})
+
+	result := project_collection.FindOne(ctx, bson.M{"userid": userId,"projectname": projectName})
 
 	var resultLog bson.M
 	result.Decode(&resultLog)
 
 	// ErrNoDocuments means that the filter did not match any documents in the collection
 	if resultLog == nil {
-		fmt.Println("project not exists")
+		fmt.Println("\n project not exists")
 		return false
 
 	} else {
-		fmt.Println("project exists")
+		fmt.Println("\n project exists")
 		return true
 
 	}
