@@ -41,14 +41,14 @@ func (l *ProjectRepository) SaveProject(project datamodels.Project) (interface{}
 
 	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
 	result, err := project_collection.InsertOne(ctx, project)
-	fmt.Println("Inserted a single project: ", result.InsertedID)
+	fmt.Println("\nInserted a single project: ", result.InsertedID)
 	return result.InsertedID, err
 }
 
 func (l *ProjectRepository) CheckprojectExist(project datamodels.Project) (bool, string) {
 
 	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
-	result := project_collection.FindOne(ctx, bson.M{"projectName": project.ProjectName})
+	result := project_collection.FindOne(ctx, bson.M{"_id": project.ProjectId})
 
 	var resultLog bson.M
 	result.Decode(&resultLog)
@@ -106,7 +106,6 @@ func (l *ProjectRepository) UpadteProject(project datamodels.Project) interface{
 	filter := bson.D{{"_id", project.ProjectId}}
 	update := bson.D{
 		{"$set", bson.D{{"projectname", project.ProjectName}}},
-		{"$set", bson.D{{"location", project.Location}}},
 		{"$set", bson.D{{"expiredate", project.ExpireDate}}},
 	}
 
@@ -121,14 +120,14 @@ func (l *ProjectRepository) UpadteProject(project datamodels.Project) interface{
 
 }
 
-func (l *ProjectRepository) DeleteProject(projectId string) interface{}{
+func (l *ProjectRepository) DeleteProject(projectId string) interface{} {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	fmt.Print(projectId)
 	id, _ := primitive.ObjectIDFromHex(projectId)
 	result, err := project_collection.DeleteOne(ctx, bson.M{"_id": id})
 	if err != nil {
-    log.Fatal(err)
+		log.Fatal(err)
 	}
 	fmt.Printf("DeleteOne removed %v document(s)\n", result.DeletedCount)
 
@@ -136,3 +135,23 @@ func (l *ProjectRepository) DeleteProject(projectId string) interface{}{
 
 }
 
+func (l *ProjectRepository) CheckprojectExistByUser(projectName string , userId string) interface{} {
+	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
+
+	result := project_collection.FindOne(ctx, bson.M{"userid": userId,"projectname": projectName})
+
+	var resultLog bson.M
+	result.Decode(&resultLog)
+
+	// ErrNoDocuments means that the filter did not match any documents in the collection
+	if resultLog == nil {
+		fmt.Println("\n project not exists")
+		return false
+
+	} else {
+		fmt.Println("\n project exists")
+		return true
+
+	}
+
+}
