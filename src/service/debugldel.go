@@ -2,6 +2,7 @@ package service
 
 import (
 	"encoding/base64"
+	"fmt"
 	fclLib "github.com/TharinduBalasooriya/LogAnalyzerBackend/LogAnalyzer"
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/datamodels"
 	"io"
@@ -10,11 +11,16 @@ import (
 	"os"
 )
 
-func WriteDebugLogFile(logfile string) {
+func WriteDebugLogFile(request datamodels.DebugRequest) {
 
+
+	err := os.MkdirAll("debug_env/"+request.ProjectId, 0755)
+	if err  != nil{
+		fmt.Println(err)
+	}
 	// Open a new file for writing only
 	file, err := os.OpenFile(
-		"debug_env/log.txt",
+		"debug_env/"+request.ProjectId+"/log.txt",
 		os.O_WRONLY|os.O_TRUNC|os.O_CREATE,
 		0666,
 	)
@@ -23,7 +29,7 @@ func WriteDebugLogFile(logfile string) {
 	}
 	defer file.Close()
 
-	data ,err := base64.StdEncoding.DecodeString(logfile)
+	data ,err := base64.StdEncoding.DecodeString(request.LogFile)
 	_, err = file.Write(data)
 	if err != nil {
 		log.Fatal(err)
@@ -31,11 +37,15 @@ func WriteDebugLogFile(logfile string) {
 
 }
 
-func WriteDebugScriptFile(scriptFile string) {
+func WriteDebugScriptFile(request datamodels.DebugRequest) {
 
+	err := os.MkdirAll("debug_env/"+request.ProjectId, 0755)
+	if err  != nil{
+		fmt.Println(err)
+	}
 	// Open a new file for writing only
 	file, err := os.OpenFile(
-		"debug_env/script.txt",
+		"debug_env/"+request.ProjectId+"/script.txt",
 		os.O_WRONLY|os.O_TRUNC|os.O_CREATE,
 		0666,
 	)
@@ -44,7 +54,7 @@ func WriteDebugScriptFile(scriptFile string) {
 	}
 	defer file.Close()
 
-	data ,err := base64.StdEncoding.DecodeString(scriptFile)
+	data ,err := base64.StdEncoding.DecodeString(request.LDELScript)
 	_, err = file.Write(data)
 	if err != nil {
 		log.Fatal(err)
@@ -52,7 +62,7 @@ func WriteDebugScriptFile(scriptFile string) {
 
 }
 
-func CreateDebugDefFile() {
+func CreateDebugDefFile(projectId string) {
 	defFileTemplate, err := os.Open("util/templates/Defs.txt")
 	if err != nil {
 		log.Fatal(err)
@@ -60,7 +70,7 @@ func CreateDebugDefFile() {
 
 	defer defFileTemplate.Close()
 	//Create New File
-	newFilePath := "debug_env/Defs.txt"
+	newFilePath := "debug_env/" +projectId+"/Defs.txt"
 	newFile, err := os.Create(newFilePath)
 	if err != nil {
 		log.Fatal(err)
@@ -82,11 +92,11 @@ func CreateDebugDefFile() {
 	}
 
 }
-func ConfigDebugDefsFile(){
-	defFileLocation := "debug_env/Defs.txt"
-	newDefScript:= "DEF	LDEL_SCRIPT_FILE			../src/debug_env/script.txt\n"
-	newDefLogFile:= "DEF\tLDEL_LOG_FILE			../src/debug_env/log.txt\n"
-	newDefResultLocation:= "DEF\tLDEL_RESULT_FILE			../src/debug_env/result.txt\n"
+func ConfigDebugDefsFile(projectID string){
+	defFileLocation := "debug_env/" +projectID+"/Defs.txt"
+	newDefScript:= "DEF	LDEL_SCRIPT_FILE			../src/debug_env/"+projectID+"/script.txt\n"
+	newDefLogFile:= "DEF\tLDEL_LOG_FILE			../src/debug_env/"+projectID+"/log.txt\n"
+	newDefResultLocation:= "DEF\tLDEL_RESULT_FILE			../src/debug_env/"+projectID+"/result.txt\n"
 
 
 	defFile,err := os.OpenFile(defFileLocation,
@@ -111,12 +121,12 @@ func ConfigDebugDefsFile(){
 
 }
 
-func GetDebugResult() (response datamodels.DebugResponse){
-	defFilePath := "debug_env/Defs.txt"
+func GetDebugResult(projectId string) (response datamodels.DebugResponse){
+	defFilePath := "debug_env/"+projectId+"/Defs.txt"
 	fclLib.NewELInterpretterWrapper().RunELInterpretter(defFilePath)
 
 	// Open file for reading
-	file, err := os.Open("debug_env/result.txt")
+	file, err := os.Open("debug_env/"+projectId+"/result.txt")
 	if err != nil {
 		log.Fatal(err)
 	}

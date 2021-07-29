@@ -69,7 +69,8 @@ func LogRoutes() *mux.Router {
 
 	router.HandleFunc("/api/logs/activateLog/{fileId}", api.HandleActiavetLogFile).Methods("GET")
 
-	router.HandleFunc("/api/debug", api.HandelDebugLDEL).Methods("POST")
+	router.HandleFunc("/api/debug/{projectId}", api.HandelDebugLDEL).Methods("GET")
 
+	router.HandleFunc("/api/debug_save", api.HandleDebugProject).Methods("POST")
 	return router
 }
