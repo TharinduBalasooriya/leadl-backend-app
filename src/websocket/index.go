@@ -1,13 +1,11 @@
 package websocket
 
 import (
-	"encoding/json"
-	"fmt"
-	"net/http"
+    "encoding/json"
+    "fmt"
+    "net/http"
 
-
-	"github.com/gorilla/websocket"
-	uuid "github.com/satori/go.uuid"
+    "github.com/gorilla/websocket"
 )
 
 func init(){
@@ -69,13 +67,10 @@ func (manager *ClientManager) start() {
             }
         case uniMessage := <-manager.unicast:
             id := uniMessage.Recipient
-            fmt.Println("I AM HERE WITH ID" + id)
-            
             for conn := range manager.clients{
-                if(conn.id == id){
-                    fmt.Println("NOW I AM TRUE")
+                if conn.id == id {
                     fmt.Println(uniMessage.Content)
-                    jsonMessage, _ := json.Marshal(&Message{Sender: "TADA", Content: uniMessage.Content})
+                    jsonMessage, _ := json.Marshal(&Message{ Content: uniMessage.Content ,Recipient: uniMessage.Recipient})
 
                     select{
                     case conn.send <- jsonMessage:
@@ -115,12 +110,12 @@ func (c *Client) read() {
             c.socket.Close()
             break
         }
-        //mesageDetail :=Message{}
-         //json.Unmarshal(message,&mesageDetail)
+         mesageDetail :=Message{}
+         json.Unmarshal(message,&mesageDetail)
          //fmt.Println(string(mesageDetail.Sender))
-        jsonMessage, _ := json.Marshal(&Message{Sender: c.id, Content: string(message)})
-        //manager.unicast <- mesageDetail
-        manager.broadcast <-jsonMessage
+        //jsonMessage, _ := json.Marshal(&Message{Sender: c.id, Content: string(message)})
+         manager.unicast <- mesageDetail
+        //manager.broadcast <-jsonMessage
     }
 }
 
@@ -149,13 +144,15 @@ func (c *Client) write() {
 func WSPage(res http.ResponseWriter, req *http.Request) {
 
 
+    res.Header().Set("Content-Type", "application/json")
 	//fmt.Fprintf(res,"WebSocket Working")
+    params := req.URL.Query()
 	conn, error := (&websocket.Upgrader{CheckOrigin: func(r *http.Request) bool { return true }}).Upgrade(res, req, nil)
 	if error != nil {
 		http.NotFound(res, req)
 		return
 	}
-	client := &Client{id: uuid.NewV4().String(), socket: conn, send: make(chan []byte)}
+	client := &Client{id:params["regId"][0], socket: conn, send: make(chan []byte)}
 
 	fmt.Println(client.id)
 	manager.register <- client
