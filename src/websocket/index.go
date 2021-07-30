@@ -67,13 +67,10 @@ func (manager *ClientManager) start() {
             }
         case uniMessage := <-manager.unicast:
             id := uniMessage.Recipient
-            fmt.Println("I AM HERE WITH ID" + id)
-            
             for conn := range manager.clients{
                 if conn.id == id {
-                    fmt.Println("NOW I AM TRUE")
                     fmt.Println(uniMessage.Content)
-                    jsonMessage, _ := json.Marshal(&Message{Sender: "TADA", Content: uniMessage.Content})
+                    jsonMessage, _ := json.Marshal(&Message{ Content: uniMessage.Content ,Recipient: uniMessage.Recipient})
 
                     select{
                     case conn.send <- jsonMessage:
