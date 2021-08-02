@@ -51,8 +51,8 @@ func GetProjects(user string) interface{} {
 
 var logrepo repository.LogRepository
 
-func GetLogListByUsernProject(user string, project string) interface{} {
-	logList := logrepo.GetLogsByUser_Project(user, project)
+func GetLogListByProjectID(projectId string) interface{} {
+	logList := logrepo.GetLogsByProject_ID(projectId)
 	return logList
 
 }
@@ -121,7 +121,7 @@ func GetToActiveDir(fileId string) string{
 
 	logFileDetails := logrepo.GetLogFileDetails(fileId)
 	user := logFileDetails.Username
-	project := logFileDetails.ProjectName
+	project := logFileDetails.ProjectId
 	var filename = logFileDetails.LogFileName
 	var extension = filepath.Ext(filename)
 	var logf = filename[0 : len(filename)-len(extension)]
@@ -172,7 +172,7 @@ func LogGetFileContentv2(fileId string) interface{} {
 
 	logFileDetails := logrepo.GetLogFileDetails(fileId)
 	user := logFileDetails.Username
-	project := logFileDetails.ProjectName
+	project := logFileDetails.ProjectId
 	var filename = logFileDetails.LogFileName
 	var extension = filepath.Ext(filename)
 	var log = filename[0 : len(filename)-len(extension)]
@@ -210,13 +210,13 @@ func LogGetFileContentv2(fileId string) interface{} {
 
 }
 
-func LogSaveDetails(userName string, projectName string, logFileName string, fileID string) {
+func LogSaveDetails(userName string, ProjectId string, logFileName string, fileID string) {
 
 	logfile := datamodels.Log{
 		Username:    userName,
 		FileId:      fileID,
 		LogFileName: logFileName,
-		ProjectName: projectName,
+		ProjectId:  ProjectId,
 		LastUpdate:  time.Now().String(),
 	}
 

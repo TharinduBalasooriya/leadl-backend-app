@@ -54,12 +54,12 @@ func GetAllProjects(w http.ResponseWriter, r *http.Request) {
 
 //
 
-func GetLogListByUsernProject(w http.ResponseWriter, r *http.Request) {
+func GetLogListByProjectID(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
-	//logs := controller.GetProjects(params["user"])
-	logs := controller.GetLogListByUsernProject(params["user"], params["project"])
+	logs := controller.GetLogListByProjectID(params["id"])
+	fmt.Println(params["id"])
 	json.NewEncoder(w).Encode(logs)
 
 }
