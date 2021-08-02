@@ -57,7 +57,7 @@ func (l *LogRepository) CheckLogExist(logfile datamodels.Log) (bool, string) {
 
 	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
 
-	result := log_collection.FindOne(ctx, bson.M{"username": logfile.Username, "projectname": logfile.ProjectName, "logfilename": logfile.LogFileName})
+	result := log_collection.FindOne(ctx, bson.M{"username": logfile.Username, "projectId": logfile.ProjectId, "logfilename": logfile.LogFileName})
 
 	var resultLog bson.M
 
@@ -137,14 +137,15 @@ func (l *LogRepository) GetLogsByUser(username string) []datamodels.Log {
 
 }
 
-func (l *LogRepository) GetLogsByUser_Project(username string, projectname string) []datamodels.Log {
+func (l *LogRepository) GetLogsByProject_ID(projectID string) []datamodels.Log {
 
 	var logs []datamodels.Log
 
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	filterCursor, err := log_collection.Find(ctx, bson.M{"username": username, "projectname": projectname})
+
+	filterCursor, err := log_collection.Find(ctx, bson.M{"projectid":projectID,})
 
 	if err != nil {
 		fmt.Println(err)
@@ -152,7 +153,6 @@ func (l *LogRepository) GetLogsByUser_Project(username string, projectname strin
 
 	defer filterCursor.Close(ctx)
 	for filterCursor.Next(ctx) {
-
 		var log datamodels.Log
 		filterCursor.Decode(&log)
 		logs = append(logs, log)

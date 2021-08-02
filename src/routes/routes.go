@@ -13,28 +13,15 @@ func LogRoutes() *mux.Router {
 	router = mux.NewRouter().StrictSlash(true)
 
 	//Get All Log files
-
-	//TODO :  Configure to work with mongodb
-
-	/*
-	*
-	* TODO:Proper api naming convention
-	 */
-
 	router.HandleFunc("/api/logs/{user}/", api.GetAllLog).Methods("GET")
 
 	//getAllProjetcs
 	router.HandleFunc("/api/projects/{user}/", api.GetAllProjects).Methods("GET")
 
 	//upload file
-	//router.HandleFunc("/api/uploads/{user}/{project}/{log}", api.HandleLogFileUpload).Methods("POST")
 	router.HandleFunc("/api/uploads/", api.HandleLogFileUpload).Methods("POST")
 
-	//
 	router.HandleFunc("/api/uploadSripts/", api.HandleSrciptUpload).Methods("POST")
-
-	//read the log file content
-	//router.HandleFunc("/api/{user}/{project}/{logfileName}", api.GetLogFileContent).Methods("GET")
 
 	//get log file content v2
 
@@ -45,13 +32,10 @@ func LogRoutes() *mux.Router {
 	router.HandleFunc("/api/updates", api.HandleFileUpdates).Methods("POST")
 
 	//GetLogsByUserandProject
-
-	router.HandleFunc("/logapi/{user}/{project}", api.GetLogListByUsernProject).Methods("GET")
-	router.HandleFunc("/api/logs/getByProject/{user}/{project}", api.GetLogListByUsernProject).Methods("GET")
+	router.HandleFunc("/api/logs/getByProject/{id}/", api.GetLogListByProjectID).Methods("GET")
 	router.HandleFunc("/ws", websocket.WSPage).Methods("GET")
 
 	//Invoke Interpreter
-
 	router.HandleFunc("/api/executeLDEL/{fileId}", api.HandleInvokeELInterpreter).Methods("GET")
 
 	//router.Use(middleware.LoggingMiddleware)
@@ -70,11 +54,11 @@ func LogRoutes() *mux.Router {
 	//check project existance 
 	router.HandleFunc("/api/project/check/{userId}/{projectName}", api.HandleExistProjects).Methods("GET")
 
-
 	router.HandleFunc("/api/logs/activateLog/{fileId}", api.HandleActiavetLogFile).Methods("GET")
 
 	router.HandleFunc("/api/debug/{projectId}", api.HandelDebugLDEL).Methods("GET")
 
 	router.HandleFunc("/api/debug_save", api.HandleDebugProject).Methods("POST")
+
 	return router
 }
