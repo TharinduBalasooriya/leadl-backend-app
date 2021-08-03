@@ -15,14 +15,14 @@ import (
 /*
 	Read the content of log file
 */
-func GetLogFileContent(w http.ResponseWriter, r *http.Request) {
+// func GetLogFileContent(w http.ResponseWriter, r *http.Request) {
 
-	w.Header().Set("Content-Type", "application/json")
-	params := mux.Vars(r)
-	logs := controller.LogGetFileContent(params["user"], params["project"], params["logfileName"])
-	json.NewEncoder(w).Encode(logs)
+// 	w.Header().Set("Content-Type", "application/json")
+// 	params := mux.Vars(r)
+// 	logs := controller.LogGetFileContent(params["user"], params["project"], params["logfileName"])
+// 	json.NewEncoder(w).Encode(logs)
 
-}
+// }
 
 func GetLogFileContentv2(w http.ResponseWriter, r *http.Request) {
 

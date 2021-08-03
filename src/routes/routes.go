@@ -44,6 +44,7 @@ func LogRoutes() *mux.Router {
 
 	//Craete a project
 	router.HandleFunc("/api/project", api.HandleProject).Methods("POST")
+	router.HandleFunc("/api/project/{id}", api.GetProjectDetails).Methods("GET")
 	//fetch a project by userId
 	router.HandleFunc("/api/projectV2/{user}", api.GetAllProjectsV2).Methods("Get")
 
