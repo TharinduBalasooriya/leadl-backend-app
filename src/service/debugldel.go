@@ -130,12 +130,22 @@ func GetDebugResult(projectId string) (response datamodels.DebugResponse){
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer file.Close()
 
 	data, err := ioutil.ReadAll(file)
 	if err != nil {
 		log.Fatal(err)
 	}
 	  response.Result = string(data)
+	  defer cleanProjectFolder(projectId,file)
 	  return response
 
+}
+
+func cleanProjectFolder(projectID string,file *os.File){
+	file.Close()
+	err := os.RemoveAll("debug_env/"+projectID)
+    if err != nil {
+        log.Fatal(err)
+    }
 }
