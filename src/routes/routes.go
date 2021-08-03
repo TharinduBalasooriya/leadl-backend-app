@@ -12,6 +12,8 @@ func LogRoutes() *mux.Router {
 	var router = mux.NewRouter()
 	router = mux.NewRouter().StrictSlash(true)
 
+
+	//router.Use(middleware.LoggingMiddleware)
 	//Get All Log files
 	router.HandleFunc("/api/logs/{user}/", api.GetAllLog).Methods("GET")
 
@@ -38,7 +40,7 @@ func LogRoutes() *mux.Router {
 	//Invoke Interpreter
 	router.HandleFunc("/api/executeLDEL/{fileId}", api.HandleInvokeELInterpreter).Methods("GET")
 
-	//router.Use(middleware.LoggingMiddleware)
+	
 
 	//Craete a project
 	router.HandleFunc("/api/project", api.HandleProject).Methods("POST")
@@ -59,6 +61,7 @@ func LogRoutes() *mux.Router {
 	router.HandleFunc("/api/debug/{projectId}", api.HandelDebugLDEL).Methods("GET")
 
 	router.HandleFunc("/api/debug_save", api.HandleDebugProject).Methods("POST")
+	
 
 	return router
 }
