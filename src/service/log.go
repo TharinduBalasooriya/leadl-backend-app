@@ -227,6 +227,7 @@ func Log_GetDefFileTempalte(fileId string) {
 	defContext := os.Getenv("DEFS")
 	decoded, err := base64.StdEncoding.DecodeString(defContext)
 
+	fmt.Println(string(decoded))
 	newFilePath := "localstorage/" + fileId + "/Defs.txt"
 	newFile, err := os.Create(newFilePath)
 	if err != nil {
