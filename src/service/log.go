@@ -218,12 +218,12 @@ func Log_GetDefFileTempalte(fileId string) {
 
 	//Open DefFile template
 
-	defFileTemplate, err := os.Open("util/templates/Defs.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
+	// defFileTemplate, err := os.Open("util/templates/Defs.txt")
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-	defer defFileTemplate.Close()
+	// defer defFileTemplate.Close()
 	defContext := os.Getenv("DEFS")
 	decoded, err := base64.StdEncoding.DecodeString(defContext)
 
