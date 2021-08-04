@@ -244,8 +244,8 @@ func Log_GetDefFileTempalte(fileId string) {
 func Log_Execute_LDEL(fileId string) {
 
 	defFilePath := "localstorage/" + fileId + "/Defs.txt"
-	file, _ := os.Create("localstorage/"+fileId+"/result.txt")
-	defer file.Close()
+	//file, _ := os.Create("localstorage/"+fileId+"/result.txt")
+	//defer file.Close()
 	fclLib.NewELInterpretterWrapper().RunELInterpretter(defFilePath)
 }
 
