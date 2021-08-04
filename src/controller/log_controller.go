@@ -104,7 +104,6 @@ func ExecuteLDEL(fileId string) (interface{}){
 	Config_LDEL_DEF(logFileDetails.LogFileName, logFileDetails.FileId)
 	service.Log_Execute_LDEL(fileId)
 	result := service.Log_Read_Result(fileId);
-
 	os.RemoveAll("localstorage/" + fileId)
 	return result
 

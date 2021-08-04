@@ -227,7 +227,6 @@ func Log_GetDefFileTempalte(fileId string) {
 	defContext := os.Getenv("DEFS")
 	decoded, err := base64.StdEncoding.DecodeString(defContext)
 
-
 	newFilePath := "localstorage/" + fileId + "/Defs.txt"
 	newFile, err := os.Create(newFilePath)
 	if err != nil {
@@ -245,7 +244,8 @@ func Log_GetDefFileTempalte(fileId string) {
 func Log_Execute_LDEL(fileId string) {
 
 	defFilePath := "localstorage/" + fileId + "/Defs.txt"
-
+	file, _ := os.Create("localstorage/"+fileId+"/result.txt")
+	defer file.Close()
 	fclLib.NewELInterpretterWrapper().RunELInterpretter(defFilePath)
 }
 
@@ -265,7 +265,7 @@ func Log_Download_LogFile(fileId string) {
 	}
 
 	data := Log_GetContent(object, filename, fileId)
-	os.MkdirAll("localstorage/"+fileId,0755)
+	os.MkdirAll("localstorage/"+fileId, 0755)
 	file, err := os.OpenFile(
 		"localstorage/"+fileId+"/"+filename,
 		os.O_WRONLY|os.O_TRUNC|os.O_CREATE,
@@ -292,7 +292,7 @@ func Log_download_Script(fileId string) {
 		return
 	}
 
-	os.MkdirAll("localstorage/"+fileId,0755)
+	os.MkdirAll("localstorage/"+fileId, 0755)
 	file, err := os.OpenFile(
 		"localstorage/"+fileId+"/script.txt",
 		os.O_WRONLY|os.O_TRUNC|os.O_CREATE,
