@@ -1,6 +1,9 @@
 package routes
 
 import (
+	"fmt"
+	"net/http"
+
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/api"
 	"github.com/gorilla/mux"
 
@@ -15,6 +18,9 @@ func LogRoutes() *mux.Router {
 
 	//router.Use(middleware.LoggingMiddleware)
 	//Get All Log files
+	router.HandleFunc("/api/",func(rw http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(rw,"Home Route")
+	})
 	router.HandleFunc("/api/logs/{user}/", api.GetAllLog).Methods("GET")
 
 	//getAllProjetcs

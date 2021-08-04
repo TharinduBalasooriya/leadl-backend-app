@@ -1,9 +1,9 @@
 package main
 
 import (
-
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/routes"
 	"github.com/gorilla/handlers"
@@ -29,7 +29,9 @@ func main() {
 	//Starting the API server
 	router := routes.LogRoutes()
 
-
+	os.MkdirAll("temp",0755)
+	os.MkdirAll("localstorage",0755)
+	os.MkdirAll("debug_env",0755)
 
 	//Load the env file
 	LoadEnv()
