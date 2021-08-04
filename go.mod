@@ -9,6 +9,5 @@ require (
 	github.com/gorilla/websocket v1.4.2
 	github.com/joho/godotenv v1.3.0
 	github.com/lestrrat-go/jwx v1.2.1
-	github.com/satori/go.uuid v1.2.0
 	go.mongodb.org/mongo-driver v1.5.3
 )

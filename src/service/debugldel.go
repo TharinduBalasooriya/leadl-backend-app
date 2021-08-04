@@ -3,7 +3,7 @@ package service
 import (
 	"encoding/base64"
 	"fmt"
-	fclLib "github.com/TharinduBalasooriya/LogAnalyzerBackend/LogAnalyzer"
+	fclLib "github.com/TharinduBalasooriya/LogAnalyzerBackend/src/LogAnalyzer"
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/datamodels"
 	"io"
 	"io/ioutil"

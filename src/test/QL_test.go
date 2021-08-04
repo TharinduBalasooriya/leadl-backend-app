@@ -1,7 +1,7 @@
 package test
 
 import (
-	"github.com/TharinduBalasooriya/LogAnalyzerBackend/LogAnalyzer"
+	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/LogAnalyzer"
 	"testing"
 )
 

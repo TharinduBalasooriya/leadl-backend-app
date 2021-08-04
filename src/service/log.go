@@ -12,7 +12,7 @@ import (
 	"os"
 	"path/filepath"
 
-	fclLib "github.com/TharinduBalasooriya/LogAnalyzerBackend/LogAnalyzer"
+	fclLib "github.com/TharinduBalasooriya/LogAnalyzerBackend/src/LogAnalyzer"
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/datamodels"
 	"github.com/TharinduBalasooriya/LogAnalyzerBackend/src/repository"
 	filestorageHandler "github.com/TharinduBalasooriya/LogAnalyzerBackend/src/util/filestorage"
