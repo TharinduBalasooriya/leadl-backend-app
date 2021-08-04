@@ -35,7 +35,7 @@ func main() {
 	os.MkdirAll("debug_env",0755)
 
 	//Load the env file
-	//LoadEnv()
+	LoadEnv()
 	// http.HandleFunc("/home/",func(rw http.ResponseWriter, r *http.Request) {
 	// 	fmt.Fprintf(rw,"Home Route")
 	// })
