@@ -224,8 +224,9 @@ func Log_GetDefFileTempalte(fileId string) {
 	}
 
 	defer defFileTemplate.Close()
+	defContext := os.Getenv("DEFS")
+	decoded, err := base64.StdEncoding.DecodeString(defContext)
 
-	//Create New File
 
 	newFilePath := "localstorage/" + fileId + "/Defs.txt"
 	newFile, err := os.Create(newFilePath)
@@ -233,18 +234,7 @@ func Log_GetDefFileTempalte(fileId string) {
 		log.Fatal(err)
 	}
 	defer newFile.Close()
-
-	//Copy bytes create a new Template
-
-	// Copy the bytes to destination from source
-	bytesWritten, err := io.Copy(newFile, defFileTemplate)
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Printf("Copied %d bytes.", bytesWritten)
-
-	// Commit the file contents
-	// Flushes memory to disk
+	newFile.Write(decoded)
 	err = newFile.Sync()
 	if err != nil {
 		log.Fatal(err)
