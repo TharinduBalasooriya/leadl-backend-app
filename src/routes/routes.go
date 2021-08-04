@@ -18,8 +18,9 @@ func LogRoutes() *mux.Router {
 
 	//router.Use(middleware.LoggingMiddleware)
 	//Get All Log files
-	router.HandleFunc("/api/",func(rw http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(rw,"Home Route")
+
+	router.HandleFunc("/",func(rw http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(rw,"HomeRoute")
 	})
 	router.HandleFunc("/api/logs/{user}/", api.GetAllLog).Methods("GET")
 
