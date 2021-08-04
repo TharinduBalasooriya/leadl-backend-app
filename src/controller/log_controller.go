@@ -57,39 +57,39 @@ func GetLogListByProjectID(projectId string) interface{} {
 
 }
 
-func LogGetFileContent(user string, project string, log string) LogContent {
+// func LogGetFileContent(user string, project string, log string) LogContent {
 
-	//fmt.Println(user)
-	bucket := "leadl/logs/" + user + "/" + project + "/"
+// 	//fmt.Println(user)
+// 	bucket := "leadl/logs/" + user + "/" + project + "/"
 
-	/*
-		TODO:change extension to config
-	*/
-	item := log + os.Getenv("BUCKET_ITEM_EXT")
-	//item := log + ".txt.zip"
+// 	/*
+// 		TODO:change extension to config
+// 	*/
+// 	item := log + os.Getenv("BUCKET_ITEM_EXT")
+// 	//item := log + ".txt.zip"
 
-	//fmt.Print(bucket+item)
+// 	//fmt.Print(bucket+item)
 
-	object := filestorageHandler.AWS_S3_Object{
-		Bucket: bucket,
-		Item:   item,
-	}
+// 	object := filestorageHandler.AWS_S3_Object{
+// 		Bucket: bucket,
+// 		Item:   item,
+// 	}
 
-	data := service.Log_GetContent(object, log)
+// 	data := service.Log_GetContent(object, log,)
 
-	var dataT = string(data)
+// 	var dataT = string(data)
 
-	logcontent := LogContent{
-		FileName: log,
-		Content:  dataT,
-	}
+// 	logcontent := LogContent{
+// 		FileName: log,
+// 		Content:  dataT,
+// 	}
 
-	/*
-		TODO:Handle download time
-	*/
-	return logcontent
+// 	/*
+// 		TODO:Handle download time
+// 	*/
+// 	return logcontent
 
-}
+// }
 
 const (
 	S3_REGION = "ap-south-1"
@@ -99,10 +99,13 @@ const (
 func ExecuteLDEL(fileId string) (interface{}){
 
 	logFileDetails := logrepo.GetLogFileDetails(fileId)
+	service.Log_Download_LogFile(fileId)
+	service.Log_download_Script(fileId)
 	Config_LDEL_DEF(logFileDetails.LogFileName, logFileDetails.FileId)
 	service.Log_Execute_LDEL(fileId)
 	result := service.Log_Read_Result(fileId);
 
+	os.RemoveAll("localstorage/" + fileId)
 	return result
 
 }
@@ -141,7 +144,7 @@ func GetToActiveDir(fileId string) string{
 		Item:   item,
 	}
 
-	data := service.Log_GetContent(object, logf)
+	data := service.Log_GetContent(object, logf,fileId)
 
 	Config_LDEL_DEF(filename, logFileDetails.FileId)
 
@@ -174,40 +177,27 @@ func LogGetFileContentv2(fileId string) interface{} {
 	user := logFileDetails.Username
 	project := logFileDetails.ProjectId
 	var filename = logFileDetails.LogFileName
-	var extension = filepath.Ext(filename)
-	var log = filename[0 : len(filename)-len(extension)]
-
+	
 	bucket := "leadl/logs/" + user + "/" + project + "/"
 
-	/*
-		TODO:change extension to config
-	*/
-	item := log + os.Getenv("BUCKET_ITEM_EXT")
-	//item := log + ".txt.zip"
 
-	//fmt.Print(bucket+item)
+	item := filename+ os.Getenv("ARCHIVED_EXT")
+	
 
 	object := filestorageHandler.AWS_S3_Object{
 		Bucket: bucket,
 		Item:   item,
 	}
 
-	data := service.Log_GetContent(object, log)
+	data := service.Log_GetContent(object, filename,fileId)
 
 	var dataT = string(data)
 
 	logcontent := LogContent{
-		FileName: log,
+		FileName: filename,
 		Content:  dataT,
 	}
-
-	/*
-		TODO:Handle download time
-	*/
 	return logcontent
-
-	//return logFileDetails
-
 }
 
 func LogSaveDetails(userName string, ProjectId string, logFileName string, fileID string) {

@@ -29,6 +29,8 @@ func HandleProject(w http.ResponseWriter, r *http.Request) {
 
 }
 
+
+
 func GetAllProjectsV2(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
@@ -73,4 +75,10 @@ func HandleExistProjects(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func GetProjectDetails(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("Content-Type", "application/json")
+	params := mux.Vars(r)
+	result := controller.GetProjectDetails(params["id"])
+	json.NewEncoder(w).Encode(result)
+}
 

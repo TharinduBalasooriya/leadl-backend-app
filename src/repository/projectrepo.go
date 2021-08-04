@@ -106,7 +106,10 @@ func (l *ProjectRepository) UpadteProject(project datamodels.Project) interface{
 	filter := bson.D{{"_id", project.ProjectId}}
 	update := bson.D{
 		{"$set", bson.D{{"projectname", project.ProjectName}}},
+		{"$set", bson.D{{"userid", project.UserId}}},
 		{"$set", bson.D{{"expiredate", project.ExpireDate}}},
+		{"$set", bson.D{{"scriptstatus", project.ScriptStatus}}},
+		{"$set", bson.D{{"script", project.Script}}},
 	}
 
 	result, err := project_collection.UpdateOne(ctx, filter, update, opts)
@@ -153,5 +156,20 @@ func (l *ProjectRepository) CheckprojectExistByUser(projectName string , userId 
 		return true
 
 	}
+
+}
+
+
+func (l *ProjectRepository) GetProjectDetails(projectId string) datamodels.Project {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	
+	id, _ := primitive.ObjectIDFromHex(projectId)
+	var resultDecode datamodels.Project
+	result := project_collection.FindOne(ctx, bson.M{"_id": id})
+
+	result.Decode(&resultDecode)
+	return resultDecode
 
 }

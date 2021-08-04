@@ -9,5 +9,5 @@ type FileStorage interface {
 }
 
 type File interface {
-	GetContent() error
+	GetContent(fileId string) error
 }

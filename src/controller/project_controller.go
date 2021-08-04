@@ -67,3 +67,8 @@ func CheckProject(projectId string , userId string) interface{} {
 	return results
 
 }
+
+func GetProjectDetails(projectId string) datamodels.Project{
+	result := projectrepo.GetProjectDetails(projectId)
+	return result
+}

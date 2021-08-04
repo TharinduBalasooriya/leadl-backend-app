@@ -26,7 +26,8 @@ func LoggingMiddleware(next http.Handler) http.Handler {
 
 			if err != nil {
 				fmt.Println(err)
-				fmt.Print("Error")
+				
+				fmt.Fprintf(w, err.Error())
 			} else {
 				claims := parsedToken.PrivateClaims()
 

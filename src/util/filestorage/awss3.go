@@ -42,10 +42,11 @@ func (fs AWS_S3) AddFiles() error {
 }
 
 
-func (obj AWS_S3_Object) GetContent() error{
+func (obj AWS_S3_Object) GetContent(fileId string) error{
 
 
-	file, err := os.Create("temp/" + obj.Item)
+	err := os.MkdirAll("temp/"+fileId,0755)
+	file, err := os.Create("temp/"+fileId+"/"+ obj.Item)
 	if err != nil {
 		fmt.Println(err)
 	}
